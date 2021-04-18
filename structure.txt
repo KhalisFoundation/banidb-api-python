@@ -56,7 +56,7 @@ Structure of result
                         'ss':,
                         'sts':
                     }
-                    },
+                },
                 'transliteration':{
                     'english':,
                     'hindi':,
@@ -64,35 +64,35 @@ Structure of result
                     'hi':,
                     'ipa':,
                     'ur':
-                    },
-                 'pageNo': 3, 
-                 'lineNo': 4, 
-                 'updated': '2021-04-18 08:52:35', 
-                 'visraam': {
+                },
+                'pageNo': 3, 
+                'lineNo': 4, 
+                'updated': '2021-04-18 08:52:35', 
+                'visraam': {
                      'sttm': [{'p': 0, 't': 'v'}], 
                      'igurbani': [{'p': 0, 't': 'v'}], 
                      'sttm2': [{'p': 0, 't': 'v'}]
-	    }, 
-                 'writer': {
+	        }, 
+                'writer': {
                          'writerId': 1, 
                          'gurmukhi': 'mÚ 1', 
                          'unicode': None, 
                          'english': 'Guru Nanak Dev Ji'
-                    }, 
-                 'source': {
+                }, 
+                'source': {
                          'sourceId': 'G', 
                          'gurmukhi': 'sRI gurU gRMQ swihb jI', 
                          'unicode': 'ਸ੍ਰੀ ਗੁਰੂ ਗ੍ਰੰਥ ਸਾਹਿਬ ਜੀ', 
                          'english': 'Sri Guru Granth Sahib Ji', 
                          'pageNo': 3
-                    }, 
-                 'raag': {
+                }, 
+                'raag': {
                          'raagId': 1, 
                          'gurmukhi': 'jp', 
                          'unicode': 'ਜਪ', 
                          'english': 'Jap', 
                          'raagWithPage': 'Jap (1-8)'
-                    }
+                }
             }
         ]
     }
