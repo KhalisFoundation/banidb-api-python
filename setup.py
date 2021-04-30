@@ -1,10 +1,12 @@
 from setuptools import find_packages, setup
 setup(
-    name='bani_db',
-    packages=find_packages(include=['bani_db']),
-    version='0.1.0',
+    name='banidb',
+    packages=['banidb'],
+    version='0.1',
+    license='MIT',
     description='BaniDB API for Python',
     author='Khalis Foundation',
-    license='MIT',
-    install_requires=['requests','time']
+    url='https://github.com/KhalisFoundation/banidb-api-python',
+    keywords=['BaniDB','API','Amrit Keertan','Sundar Gutka','SikhiToTheMax','Gurbani','KhalisFoundation'],
+    install_requires=['requests','time','pickle']
 )
