@@ -140,7 +140,7 @@ def hukamnama(year=y,month=m,day=d):
 def random(sourceID='G'): #save() to be modified for reference
     link='https://api.banidb.com/v2/random/'+sourceID
     q=requests.get(link)
-    r=q.json(r['shabadInfo']['shabadId'])
+    r=q.json()
     x=shabad(r['shabadInfo']['shabadId'])
     return x
 
