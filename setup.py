@@ -8,9 +8,5 @@ setup(
     author='Khalis Foundation',
     url='https://github.com/KhalisFoundation/banidb-api-python',
     keywords=['BaniDB','API','Amrit Keertan','Sundar Gutka','SikhiToTheMax','Gurbani','KhalisFoundation'],
-    install_requires=[
-        'requests',
-        'time',
-        'pickle'
-        ]
+    install_requires=['requests']
 )
