@@ -15,7 +15,7 @@ def searchType():
         7: 'Romanized first letter anywhere (English)'
     }
     return d
-
+#add conditional err on query len < 3
 def search(query,searchtype=1,source='all',larivaar=False,teeka=['bdb'],ang=None,raag=None,writer='all',page=1,results=None):
     res='https://api.banidb.com/v2/search/'+str(query)+'?'
     s={
@@ -94,7 +94,7 @@ def shabad(shabadID,larivaar=False,teeka=['bdb']):                     #used for
     d['verses']=e
     return d
 
-def angs(angNo,sourceID='G',larivaar=False,translation=False):
+def angs(angNo,sourceID='G',larivaar=False,translation=False): #add consition of angNo to be between 1,1430
     link='https://api.banidb.com/v2/angs/'+str(angNo)+'/'+str(sourceID)
     q=requests.get(link)
     r=q.json()
@@ -116,7 +116,7 @@ def angs(angNo,sourceID='G',larivaar=False,translation=False):
             else:
                 l.append(j['verse']['unicode'])
             if translation==True:
-                l.append(j['translation']['en']['bdb'],j['translation']['pu']['bdb']['unicode'])
+                l.append([j['translation']['en']['bdb'],j['translation']['pu']['bdb']['unicode']])
             p=[]
             for k in l:
                 if k!=None:
@@ -132,10 +132,14 @@ def hukamnama(year=y,month=m,day=d):
     if 'error' in r.keys():
         return(r['data']['error'])
     else:
-        for i in r['shabadIds']:
-            save({'shabadID':i})
-            x=shabad(i)
-            return x
+        d={}
+        l=[]
+        for i in r['shabads']:
+            save({'shabadID':i['shabadInfo']['shabadId']})
+            x=shabad(i['shabadInfo']['shabadId'])
+            l.append(x)
+        d['hukam']=l
+        return d
 
 def random(sourceID='G'): #save() to be modified for reference
     link='https://api.banidb.com/v2/random/'+sourceID
