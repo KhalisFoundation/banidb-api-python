@@ -1,10 +1,15 @@
 import requests
 import time
-import pickle
-y,m,d=time.localtime().tm_year,time.localtime().tm_mon,time.localtime().tm_mday
+from functools import lru_cache
+'''from banidb.history import save'''
+y = time.localtime().tm_year
+m = time.localtime().tm_mon
+d = time.localtime().tm_mday
+url = 'https://api.banidb.com/v2'
+
 
 def searchType():
-    d={
+    types = {
         0: 'First letter each word from start (Gurmukhi)',
         1: 'First letter each word anywhere (Gurmukhi)',
         2: 'Full Word (Gurmukhi)',
@@ -14,396 +19,472 @@ def searchType():
         6: 'Main Letter (Gurmukhi)',
         7: 'Romanized first letter anywhere (English)'
     }
-    return d
-#add conditional err on query len < 3
-def search(query,searchtype=1,source='all',larivaar=False,teeka=['bdb'],ang=None,raag=None,writer='all',page=1,results=None):
-    res='https://api.banidb.com/v2/search/'+str(query)+'?'
-    s={
-        'searchtype':searchtype,
-        'source':source,
-        'ang':ang,
-        'raag':raag,
-        'writer':writer,
-        'page':page,
-        'results':results
+    return types
+# add test for conditional err on query len < 3
+
+
+def search(query, searchtype=1, source='all', larivaar=False,
+           ang=None, raag=None, writer='all', page=1, results=None):
+    res = url+'/search/'+str(query)+'?'
+    urladd = {
+        'searchtype': searchtype,
+        'source': source,
+        'ang': ang,
+        'raag': raag,
+        'writer': writer,
+        'page': page,
+        'results': results
         }
-    for i in s.keys():
-        res+=i+'='+str(s[i])+'&'
-    d={}
-    response=requests.get(res)
-    result=response.json()
-    info=result['resultsInfo']
-    totalRes=info['totalResults'] #Total Shabads found!
-    totalPages=info['pages']['totalPages'] #Total Pages
-    for k in range(1,totalPages+1):
-        response=requests.get(res)
-        r=response.json()
-        info=r['resultsInfo']
-        s='Page'+str(k)
-        ver=[]
-        for j in r['verses']:
-            v={}
-            v['shabadId']=j['shabadId']
-            if larivaar==True:
-                v['lari']=j['larivaar']['unicode']
+    for i in urladd.keys():
+        res += i+'='+str(urladd[i])+'&'
+    results = {}
+    response = requests.get(res)
+    js = response.json()
+    info = js['resultsInfo']
+    totalRes = info['totalResults']
+    results['totalResults'] = totalRes
+    currentPage = info['pages']['page']
+    totalPages = info['pages']['totalPages']  # Total Pages
+    results['totalPages'] = totalPages
+    pages = {}
+    for page in range(currentPage, totalPages+1):
+        response = requests.get(res)
+        js = response.json()
+        info = js['resultsInfo']
+        pg = 'Page'+str(page)
+        verses = []
+        for verse in js['verses']:
+            verse_dict = {}
+            verse_dict['shabadId'] = verse['shabadId']
+            if larivaar is True:
+                verse_dict['lari'] = verse['larivaar']['unicode']
             else:
-                v['verse']=j['verse']['unicode']
-            t={'en':[],'pu':[],'hi':[],'es':[]}
-            for h in teeka:
-                trans=j['translation']
-                for g in trans.keys():
-                    if h in trans[g].keys():
-                        t[g].append(trans[g][h])
-            v['teeka']=t
-            v['source']={'pu':j['source']['unicode'],'en':j['source']['english'],'ang':j['pageNo'],'raagpu':j['raag']['unicode'],'raagen':j['raag']['english'],'writer':j['writer']['english']}
-            ver.append(v)
-        d[s]=ver
+                verse_dict['verse'] = verse['verse']['unicode']
+            verse_dict['steek'] = verse['translation']
+            verse_dict['source'] = {
+                'pu': verse['source']['unicode'],
+                'en': verse['source']['english'],
+                'ang': verse['pageNo'],
+                'raagpu': verse['raag']['unicode'],
+                'raagen': verse['raag']['english'],
+                'writer': verse['writer']['english']
+                }
+            verses.append(verse_dict)
+        pages[pg] = verses
         if 'nextPage' in info['pages'].keys():
-            res=info['pages']['nextPage']
-    return d
+            res = info['pages']['nextPage']
+    results['pagesData'] = pages
+    return results  # replace all d with results
 
-def shabad(shabadID,larivaar=False,teeka=['bdb']):                     #used for getting specific shabad using Shabad ID which we get from search()
-    link='https://api.banidb.com/v2/shabads/'+str(shabadID)
-    q=requests.get(link)
-    save({'shabadID':shabadID})
-    r=q.json()
-    s=r['shabadInfo']
-    d={}
-    d['sourceUni']=s['source']['unicode']
-    d['sourceEng']=s['source']['english']
-    d['writer']=s['writer']['english'] 
-    d['ang']=s['source']['pageNo']
-    e=[]
-    for j in r['verses']:
-        v={}
-        if larivaar==True:
-            if j['larivaar']['unicode']!=None and j['larivaar']['unicode']!='':
-                v['verse']=j['larivaar']['unicode']
+
+@lru_cache(maxsize=3)  # understand and use everywhere
+def shabad(shabadID, larivaar=False):
+    link = url+'/shabads/'+str(shabadID)
+    data = requests.get(link)
+    '''save({'shabadID': shabadID})'''
+    js = data.json()
+    info = js['shabadInfo']
+    shabad = {}
+    shabad['sourceUni'] = info['source']['unicode']
+    shabad['sourceEng'] = info['source']['english']
+    shabad['writer'] = info['writer']['english']
+    shabad['ang'] = info['source']['pageNo']
+    lines = []
+    for verse in js['verses']:
+        line = {}
+        line['verseID'] = verse['verseId']
+        if larivaar is True:
+            if verse['larivaar']['unicode'] is not None:
+                if verse['larivaar']['unicode'] != '':
+                    line['verse'] = verse['larivaar']['unicode']
             else:
-                v['verse']=j['verse']['unicode']
+                line['verse'] = verse['verse']['unicode']
         else:
-            v['verse']=j['verse']['unicode']
-        t={'en':[],'pu':[],'hi':[],'es':[]}
-        for h in teeka:
-            trans=j['translation']
-            for g in trans.keys():
-                if h in trans[g].keys():
-                    t[g].append(trans[g][h])
-        v['teeka']=t
-        e.append(v)
-    d['verses']=e
-    return d
+            line['verse'] = verse['verse']['unicode']
+        line['steek'] = verse['translation']
+        line['transliteration'] = verse['transliteration']
+        lines.append(line)
+    shabad['verses'] = lines
+    return shabad
 
-def angs(angNo,sourceID='G',larivaar=False,translation=False): #add consition of angNo to be between 1,1430
-    link='https://api.banidb.com/v2/angs/'+str(angNo)+'/'+str(sourceID)
-    q=requests.get(link)
-    r=q.json()
-    d={}
-    if 'pageNos' in r.keys():
-        d['source']=[r['pages'][0]['source']['unicode'],r['pages'][0]['source']['english']]
-        for i in r['pageNos']:
-            pg='Ang'+str(i)
-            x=angs(i)
-            d[pg]= x[pg]
+
+def angs(angNo, sourceID='G', larivaar=False, steek=False, translit=False):
+    link = url+'/angs/'+str(angNo)+'/'+str(sourceID)
+    response = requests.get(link)
+    js = response.json()
+    if 'error' in js.keys():
+        return js['data']['error']
     else:
-        d['source']=[r['source']['unicode'],r['source']['english']]
-        pg='Ang'+str(r['source']['pageNo'])
-        ver=[]
-        for j in r['page']:
-            l=[]
-            if larivaar==True:
-                l.append(j['larivaar']['unicode'])
-            else:
-                l.append(j['verse']['unicode'])
-            if translation==True:
-                l.append([j['translation']['en']['bdb'],j['translation']['pu']['bdb']['unicode']])
-            p=[]
-            for k in l:
-                if k!=None:
-                    p.append(k)
-            ver.append(p)
-        d[pg]=ver
-    return d
+        gurbani = {}
+        if 'pageNos' in js.keys():
+            pages = []
+            for pgno in js['pageNos']:
+                x = angs(pgno, sourceID, larivaar, steek, translit)
+                pages.append(x)
+            gurbani['pages'] = pages
+            return gurbani
+        else:
+            gurbani['source'] = {
+                'sourceId': js['source']['sourceId'],
+                'unicode': js['source']['unicode'],
+                'english': js['source']['english'],
+                'angNo': js['source']['pageNo']
+                }
+            page = []
+            for verse in js['page']:
+                ang = {}
+                ang['verseId'] = verse['verseId']
+                ang['shabadId'] = verse['shabadId']
+                if larivaar is True:
+                    ang['verse'] = verse['larivaar']['unicode']
+                else:
+                    ang['verse'] = verse['verse']['unicode']
+                if steek is True:
+                    ang['steek'] = verse['translation']
+                if translit is True:
+                    ang['translit'] = verse['transliteration']
+                page.append(ang)
+            gurbani['page'] = page
+        return gurbani
 
-def hukamnama(year=y,month=m,day=d):
-    link='https://api.banidb.com/v2/hukamnamas/'+str(year)+'/'+str(month)+'/'+str(day)
-    q=requests.get(link)
-    r=q.json()
-    if 'error' in r.keys():
-        return(r['data']['error'])
+
+def hukamnama(year=y, month=m, day=d):
+    link = url+'/hukamnamas/'+str(year)+'/'+str(month)+'/'+str(day)
+    response = requests.get(link)
+    js = response.json()
+    if 'error' in js.keys():
+        return(js['data']['error'])
     else:
-        d={}
-        l=[]
-        for i in r['shabads']:
-            save({'shabadID':i['shabadInfo']['shabadId']})
-            x=shabad(i['shabadInfo']['shabadId'])
-            l.append(x)
-        d['hukam']=l
-        return d
+        hukam = {}
+        bani = []
+        for i in js['shabads']:
+            '''save({'shabadID': i['shabadInfo']['shabadId']})'''
+            x = shabad(i['shabadInfo']['shabadId'])
+            bani.append(x)
+        hukam['hukam'] = bani
+        return hukam
 
-def random(sourceID='G'): #save() to be modified for reference
-    link='https://api.banidb.com/v2/random/'+sourceID
-    q=requests.get(link)
-    r=q.json()
-    x=shabad(r['shabadInfo']['shabadId'])
-    return x
+
+def random(sourceID='G'):
+    link = url+'/random/'+sourceID
+    response = requests.get(link)
+    js = response.json()
+    gurbani = shabad(js['shabadInfo']['shabadId'])
+    return gurbani
+
 
 def banis():
-    link="http://api.banidb.com/v2/banis"
-    q=requests.get(link)
-    r=q.json()
-    d={'Bani ID':['gurmukhiUni','transliteration']}
-    for i in r:
-        d[i['ID']]=[]
-        l=['gurmukhiUni','transliteration']
-        for k in l:
-            if i[k]!=None:
-                d[i['ID']].append(i[k])
-    return d   
+    link = url+"/banis"
+    response = requests.get(link)
+    js = response.json()
+    gurbani = {'Bani ID': ['gurmukhiUni', 'transliterations']}
+    for bani in js:
+        gurbani[bani['ID']] = []
+        data = ['gurmukhiUni', 'transliterations']
+        for k in data:
+            if bani[k] is not None:
+                gurbani[bani['ID']].append(bani[k])
+    return gurbani
 
-def bani(baniID,larivaar=False):
-    link="http://api.banidb.com/v2/banis/"+str(baniID)
-    q=requests.get(link)
-    r=q.json()
-    d={}
-    info=r['baniInfo']
-    d["Info"]=[info['unicode'],info['english']]
-    if info['source']['unicode'] != None:
-        d["Source"]=[info['source']['unicode'],info['source']['english']]
-    s=[]
-    for i in r['verses']:
-        b=i['verse']
-        l=[b['translation']['en']['bdb']]
-        if larivaar==True:
-            l.insert(0,b['larivaar']['unicode'])
+
+def bani(baniID, larivaar=False):
+    link = url+"/banis/"+str(baniID)
+    response = requests.get(link)
+    js = response.json()
+    gurbani = {}
+    info = js['baniInfo']
+    gurbani["Info"] = {
+        'baniID': info['baniID'],
+        'unicode': info['unicode'],
+        'english': info['english'],
+        'hindi': info['hindi'],
+        'ipa': info['ipa'],
+        'urdu': info['ur']
+        }
+    gurbani['raag'] = info['raag']
+    gurbani['source'] = info['source']
+    verses = []
+    for i in js['verses']:
+        verse = i['verse']
+        data = {}  # shall be converted to easily accessible dictionary
+        data['verseId'] = verse['verseId']
+        if larivaar is True:
+            data['verse'] = verse['larivaar']['unicode']
         else:
-            l.insert(0,b['verse']['unicode'],)
-        if 'bdb' in b['translation']['pu'].keys():
-            l.append(b['translation']['pu']['bdb']['unicode'])
-        p=[]
-        for k in l:
-            if k!=None and k!='':
-                p.append(k)
-        s.append(p)
-    d['Verse']=s
-    return d
+            data['verse'] = verse['verse']['unicode']
+        data['steek'] = verse['translation']
+        data['translit'] = verse['transliteration']
+        verses.append(data)
+    gurbani['Verse'] = verses
+    return gurbani
+
 
 def amritkeertan():
-    link='http://api.banidb.com/v2/amritkeertan'
-    q=requests.get(link)
-    r=q.json()
-    d=[]
-    for i in r['headers']:
-        l={'Header ID':i['HeaderID'],'Gurmukhi':i['GurmukhiUni'],'English':i['Transliterations']['en']}
-        d.append(l)
-    return d
+    link = url+'/amritkeertan'
+    response = requests.get(link)
+    js = response.json()
+    aklist = []
+    for header in js['headers']:
+        data = {
+            'Header ID': header['HeaderID'],
+            'GurmukhiUni': header['GurmukhiUni'],
+            'Gurmukhi': header['Gurmukhi'],
+            'Translit': header['Transliterations']
+            }
+        aklist.append(data)
+    return aklist
+
 
 def amritkeertanindex():
-    link='http://api.banidb.com/v2/amritkeertan/index'
-    q=requests.get(link)
-    r=q.json()
-    d=[]
-    for i in r['index']:
-        j=[]
-        l=[i['HeaderID'],i['ShabadID'],i['GurmukhiUni'],i['Translations']['en']['bdb'],i['Translations']['puu']['bdb']]
-        for k in l:
-            if k!=None and k!='':
-                j.append(k)
-        d.append(j)
-    return d
-                
+    link = url+'/amritkeertan/index'
+    response = requests.get(link)
+    js = response.json()
+    akindices = {}
+    for i in js['index']:
+        data = {
+            'IndexID': i['IndexID'],
+            'HeaderID': i['HeaderID'],
+            'ShabadID': i['ShabadID'],
+            'Gurmukhi': i['GurmukhiUni'],
+            'Steek': i['Translations'],
+            'Translit': i['Transliterations'],
+            'SourceID': i['SourceID'],
+            'Ang': i['Ang'],
+            'Writer': i['WriterEnglish'],
+            'RaagID': i['RaagID']
+        }
+        fdata = {}
+        for k in data:
+            if data[k] is not None and data[k] != '':
+                fdata[k] = data[k]
+        akindices[i['IndexID']] = fdata
+    return akindices
+
 
 def amritkeertansearch(headerID):
-    link='http://api.banidb.com/v2/amritkeertan/index/'+str(headerID)
-    q=requests.get(link)
-    r=q.json()
-    d={}
-    h=r['header'][0]
-    d['Header ID']=h['HeaderID']
-    d['GurmukhiUni']=h['GurmukhiUni']
-    d['English']=h['Transliterations']['en']
-    p=[]
-    for i in r['index']:
-        l=[i['ShabadID'],i['GurmukhiUni'],i['Translations']['en']['bdb'],i['SourceUnicode']]
-        p.append(l)
-    d['Banis']=p
-    return d
+    link = url+'/amritkeertan/index/'+str(headerID)
+    response = requests.get(link)
+    js = response.json()
+    results = {}
+    header = js['header'][0]
+    results['Header ID'] = header['HeaderID']
+    results['Gurmukhi'] = header['GurmukhiUni']
+    results['Translit'] = header['Transliterations']
+    banis = []
+    for index in js['index']:
+        data = {
+            'IndexID': index['IndexID'],
+            'HeaderID': index['HeaderID'],
+            'ShabadID': index['ShabadID'],
+            'Gurmukhi': index['GurmukhiUni'],
+            'Steek': index['Translations'],
+            'Translit': index['Transliterations'],
+            'SourceID': index['SourceID'],
+            'Ang': index['Ang'],
+            'Writer': index['WriterEnglish'],
+            'RaagID': index['RaagID']
+        }
+        banis.append(data)
+    results['Banis'] = banis
+    return results
+
 
 def amritkeertanshabad(shabadID):
-    x=shabad(shabadID)
-    return x
+    gurbani = shabad(shabadID)
+    return gurbani
+
 
 def kosh(letter):
-    link='http://api.banidb.com/v2/kosh/'+str(letter)
-    q=requests.get(link)
-    r=q.json()
-    d=[['ਸ਼ਬਦ','Word']]
-    for i in range(len(r)):
-        f=r[i]
-        d.append([f['wordUni'],f['word']])
-    return d
-        
+    link = url+'/kosh/'+str(letter)
+    response = requests.get(link)
+    js = response.json()
+    results = [['ਸ਼ਬਦ', 'Word']]
+    resCount = len(js)
+    for i in range(resCount):
+        word = js[i]
+        results.append([word['wordUni'], word['word']])
+    return results
+
 
 def koshword(word):
-    link='http://api.banidb.com/v2/kosh/word/'+str(word)
-    q=requests.get(link)
-    r=q.json()
-    d=[['ਸ਼ਬਦ (Word)','ਵਿਆਖਿਆ (Definition)']]
-    for i in r:
-        d.append([i['wordUni'],i['definitionUni']])
-    return d
+    link = url+'/kosh/word/'+str(word)
+    response = requests.get(link)
+    js = response.json()
+    results = []
+    for word in js:
+        data = {
+            'wordUni': word['wordUni'],
+            'word': word['word'],
+            'defUni': word['definitionUni'],
+            'def': word['definition']
+        }
+        results.append(data)
+    return results
+
 
 def koshsearch(query):
-    link='http://api.banidb.com/v2/kosh/search/'+str(query)
-    q=requests.get(link)
-    r=q.json()
-    d=[['ਸ਼ਬਦ (Word)','ਵਿਆਖਿਆ (Definition)']]
-    for i in range(len(r)):
-        f=r[i]
-        d.append([f['wordUni'],f['definitionUni']])
-    return d
+    link = url+'/kosh/search/'+str(query)
+    response = requests.get(link)
+    js = response.json()
+    results = []
+    resCount = len(js)
+    for i in range(resCount):
+        data = js[i]
+        results.append([data['wordUni'], data['definitionUni']])
+    return results
+
 
 def rehats():
-    link='http://api.banidb.com/v2/rehats'
-    q=requests.get(link)
-    r=q.json()
-    d=[['Rehat ID','Rehat Name']]
-    for i in r['maryadas']:
-        d.append([i['rehatID'],i['rehatName']])
-    return d
-        
+    link = url+'/rehats'
+    response = requests.get(link)
+    js = response.json()
+    rehats = []
+    for i in js['maryadas']:
+        data = {
+            'rehatID': i['rehatID'],
+            'rehatName': i['rehatName']
+        }
+        rehats.append(data)
+    return rehats
+
 
 def rehat(rehatID):
-    link='http://api.banidb.com/v2/rehats/'+str(rehatID)
-    q=requests.get(link)
-    r=q.json()
-    d={'Rehat ID':rehatID,'chapters':[]}
-    for i in r['chapters']:
-        l={'Chapter ID':i['chapterID'],'Chapter Name':i['chapterName']}
-        d['chapters'].append(l)
-    return d            
-    
-def rehatChapter(rehatID,chapterID):
-    link='http://api.banidb.com/v2/rehats/'+str(rehatID)+'/chapters/'+str(chapterID)
-    q=requests.get(link)
-    d=q.json()
-    return d
+    link = url+'/rehats/'+str(rehatID)
+    response = requests.get(link)
+    js = response.json()
+    chapters = {
+        'Rehat ID': rehatID,
+        'chapters': []
+        }
+    for i in js['chapters']:
+        chapter = {
+            'Chapter ID': i['chapterID'],
+            'Chapter Name': i['chapterName']
+            }
+        chapters['chapters'].append(chapter)
+    return chapters
 
-def rehatSearch(query): #remove extra html tags from API
-    link='http://api.banidb.com/v2/rehats/search/'+str(query)
-    q=requests.get(link)
-    r=q.json()
-    d=[]
-    for i in r['rows']:
-        l={'Rehat ID':i['rehatID'],'Chapter ID':i['chapterID'],'Chapter Name':i['chapterName']}
-        d.append(l)
-    return d
+
+def rehatChapter(rehatID, chapterID):
+    link = url+'/rehats/'+str(rehatID)+'/chapters/'+str(chapterID)
+    response = requests.get(link)
+    js = response.json()
+    tags = ['&', '<']
+    chapter = js
+    content = chapter['chapters'][0]['chapterContent']
+    for i in content:
+        if i in tags:
+            if i == '<':
+                x = content.index(i)
+                y = content.index('>')
+                content = content[:x]+content[y+1:]
+            elif i == '&':
+                tag = ['&nbsp;', '&amp;']
+                for j in tag:
+                    content = content.replace(j, '')
+    chapter['content'] = content
+    return chapter
+
+
+def rehatSearch(query):  # remove extra html tags from API
+    link = url+'/rehats/search/'+str(query)
+    response = requests.get(link)
+    js = response.json()
+    results = []
+    for i in js['rows']:
+        chapter = {
+            'chapterID': i['chapterID'],
+            'chapterName': i['chapterName']
+            }
+        results.append(chapter)
+    return results
+
 
 def writers():
-    link='http://api.banidb.com/v2/writers'
-    q=requests.get(link)
-    r=q.json()
-    d=[]
-    for i in r['rows'][1:]:
-        l={'WriterID':i['WriterID'],'WriterName':i['WriterEnglish']}
-        d.append(l)
-    return d
-
-#Updated on 21/04/2021 - 16:16 IST
-def raags():
-    link='http://api.banidb.com/v2/raags'
-    q=requests.get(link)
-    r=q.json()
-    d=[]
-    for i in r['rows'][1:]:
-        l={
-            'Raag ID':i['RaagID'],
-            'ਰਾਗ':i['RaagUnicode'],
-            'Raag':i['RaagEnglish']
+    link = url+'/writers'
+    response = requests.get(link)
+    js = response.json()
+    writers = []
+    for row in js['rows'][1:]:
+        writer = {
+            'WriterID': row['WriterID'],
+            'WriterName': row['WriterEnglish']
             }
-        d.append(l)
-    return d
+        writers.append(writer)
+    return writers
+
+
+def raags():
+    link = url+'/raags'
+    response = requests.get(link)
+    js = response.json()
+    raags = []
+    for row in js['rows'][1:]:
+        raag = {
+            'RaagID': row['RaagID'],
+            'RaagUni': row['RaagUnicode'],
+            'RaagEng': row['RaagEnglish']
+            }
+        raags.append(raag)
+    return raags
+
 
 def raag(RaagID):
-    link='http://api.banidb.com/v2/raags'
-    q=requests.get(link)
-    r=q.json()
-    d=[]
-    for i in r['rows'][1:]:
-        if i['RaagID']==RaagID:
-            linkw='http://api.banidb.com/v2/writers'
-            qw=requests.get(linkw)
-            w=qw.json()
-            s=i['SourceInfo'][0]
-            op={}
-            l={
-                'Raag ID':i['RaagID'],
-                'ਰਾਗੁ':i['RaagUnicode'],
-                'Raag':i['RaagEnglish']+'\n',
-                'TimeOfRaag':(i['StartTime'],i['EndTime']),
-                'CommonThemes':i['CommonThemes'],
-                'Feeling':i['Feeling'],
-                'Angs':{s['SourceID']:[s['Start'],s['End']]},
-                'Overview':i['Overview'],
-                'Advanced':i['Advanced'],
-                'MusicalComposure':i['MusicalComposure'],
-                'Placement':i['Placement'],
-                'Season':i['Season'],
-                'Sargun':'',
-                'Aroh':i['Sargun']['Aroh'],
-                'Avroh':i['Sargun']['Avroh'],
-                'Vadi':i['Sargun']['Vadi'],
-                'Samvadi':i['Sargun']['Samvadi'],
-                'Sur':i['Sargun']['Sur'],
-                'Thaat':i['Sargun']['Thaat'],
-                'Jaati':i['Jaati'],
-                'Season':i['Season']
+    link = url+'/raags'
+    response = requests.get(link)
+    js = response.json()
+    result = []
+    for row in js['rows'][5:]:
+        if row['RaagID'] == RaagID:
+            writerUrl = url+'/writers'
+            wres = requests.get(writerUrl)
+            wjs = wres.json()
+            info = row['SourceInfo'][0]
+            raagData = {}
+            data = {
+                'Raag ID': row['RaagID'],
+                'ਰਾਗੁ': row['RaagUnicode'],
+                'Raag': row['RaagEnglish']+'\n',
+                'TimeOfRaag': (row['StartTime'], row['EndTime']),
+                'CommonThemes': row['CommonThemes'],
+                'Feeling': row['Feeling'],
+                'Angs': {info['SourceID']: [info['Start'], info['End']]},
+                'Overview': row['Overview'],
+                'Advanced': row['Advanced'],
+                'MusicalComposure': row['MusicalComposure'],
+                'Placement': row['Placement'],
+                'Season': row['Season'],
+                'Sargun': '',
+                'Aroh': row['Sargun']['Aroh'],
+                'Avroh': row['Sargun']['Avroh'],
+                'Vadi': row['Sargun']['Vadi'],
+                'Samvadi': row['Sargun']['Samvadi'],
+                'Sur': row['Sargun']['Sur'],
+                'Thaat': row['Sargun']['Thaat'],
+                'Jaati': row['Jaati']
                 }
-            l['Writers']=[]
-            for j in i['Writers']:
-                for k in w['rows']:
-                    if k['WriterID']==j:
-                        l['Writers'].append(k['WriterEnglish']) #if writer id in writers give writer name to list
-            for k in l.keys():
-                if l[k]!=None and l[k]!='':
-                    op[k]=l[k]
-            d.append(op)
-    return d
+            data['Writers'] = []
+            for writer in row['Writers']:  # provides list of writer names
+                for writerRow in wjs['rows']:
+                    if writerRow['WriterID'] == writer:
+                        data['Writers'].append(writerRow['WriterEnglish'])
+            for k in data.keys():  # removes empty or null data values
+                if data[k] is not None and data[k] != '':
+                    raagData[k] = data[k]
+            result.append(raagData)
+    return result
 
 
 def sources():
-    link='http://api.banidb.com/v2/sources'
-    q=requests.get(link)
-    r=q.json()
-    d=[]
-    for i in r['rows']:
-        l={'Source ID':i['SourceID'],'SourceUni':i['SourceUnicode'],'SourceEng':i['SourceEnglish']}
-        d.append(l)
-    return d    
-
-def save(dic):
-    f=open('history.dat','ab')
-    pickle.dump(dic,f)
-    f.close()
-
-def history(): #returns nested list of recent shabads with Shabad Id
-    try:
-        f=open('history.dat','rb')
-        l=[]
-        while True:
-            try:
-                x=pickle.load(f)
-                l.append(x)
-            except EOFError:
-                break
-        f.close()
-        return l
-    except FileNotFoundError:
-        return ['No History']
-
-def clear():
-    try:
-        f=open('history.dat','wb')
-        f.close()
-    except FileNotFoundError:
-        pass
+    link = url+'/sources'
+    response = requests.get(link)
+    js = response.json()
+    result = []
+    for row in js['rows']:
+        source = {
+            'SourceID': row['SourceID'],
+            'SourceUni': row['SourceUnicode'],
+            'SourceEng': row['SourceEnglish']
+            }
+        result.append(source)
+    return result

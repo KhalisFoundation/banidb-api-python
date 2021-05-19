@@ -21,6 +21,6 @@ from banidb.banidb import writers
 from banidb.banidb import raags
 from banidb.banidb import raag
 from banidb.banidb import sources
-from banidb.banidb import history
-from banidb.banidb import clear
-from banidb.banidb import save
+from banidb.history import history
+from banidb.history import clear
+from banidb.history import save
