@@ -1,3 +1,6 @@
+
+__version__ = '0.1'
+
 from banidb.banidb import searchType
 from banidb.banidb import search
 from banidb.banidb import shabad
@@ -21,6 +24,3 @@ from banidb.banidb import writers
 from banidb.banidb import raags
 from banidb.banidb import raag
 from banidb.banidb import sources
-from banidb.history import history
-from banidb.history import clear
-from banidb.history import save
