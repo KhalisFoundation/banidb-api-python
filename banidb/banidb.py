@@ -1,14 +1,13 @@
 import requests
 import time
 from functools import lru_cache
-'''from banidb.history import save'''
 y = time.localtime().tm_year
 m = time.localtime().tm_mon
 d = time.localtime().tm_mday
 url = 'https://api.banidb.com/v2'
 
 
-def searchType():
+def searchtype():
     types = {
         0: 'First letter each word from start (Gurmukhi)',
         1: 'First letter each word anywhere (Gurmukhi)',
@@ -41,13 +40,13 @@ def search(query, searchtype=1, source='all', larivaar=False,
     response = requests.get(res)
     js = response.json()
     info = js['resultsInfo']
-    totalRes = info['totalResults']
-    results['totalResults'] = totalRes
-    currentPage = info['pages']['page']
-    totalPages = info['pages']['totalPages']  # Total Pages
-    results['totalPages'] = totalPages
+    total_res = info['totalResults']
+    results['totalResults'] = total_res
+    current_page = info['pages']['page']
+    total_pages = info['pages']['totalPages']  # Total Pages
+    results['totalPages'] = total_pages
     pages = {}
-    for page in range(currentPage, totalPages+1):
+    for page in range(current_page, total_pages+1):
         response = requests.get(res)
         js = response.json()
         info = js['resultsInfo']
@@ -77,11 +76,10 @@ def search(query, searchtype=1, source='all', larivaar=False,
     return results  # replace all d with results
 
 
-@lru_cache(maxsize=3)  # understand and use everywhere
-def shabad(shabadID, larivaar=False):
-    link = url+'/shabads/'+str(shabadID)
+@lru_cache(maxsize=5)  # understand and use everywhere
+def shabad(shabad_id, larivaar=False):
+    link = url+'/shabads/'+str(shabad_id)
     data = requests.get(link)
-    '''save({'shabadID': shabadID})'''
     js = data.json()
     info = js['shabadInfo']
     shabad = {}
@@ -108,8 +106,11 @@ def shabad(shabadID, larivaar=False):
     return shabad
 
 
-def angs(angNo, sourceID='G', larivaar=False, steek=False, translit=False):
-    link = url+'/angs/'+str(angNo)+'/'+str(sourceID)
+def angs(ang_no, source_id='G', larivaar=False, steek=False, translit=False):
+    if source_id == 'G':
+        if 0 >= ang_no or ang_no > 1430:
+            raise ValueError('Ang does not exist!')
+    link = url+'/angs/'+str(ang_no)+'/'+str(source_id)
     response = requests.get(link)
     js = response.json()
     if 'error' in js.keys():
@@ -119,7 +120,7 @@ def angs(angNo, sourceID='G', larivaar=False, steek=False, translit=False):
         if 'pageNos' in js.keys():
             pages = []
             for pgno in js['pageNos']:
-                x = angs(pgno, sourceID, larivaar, steek, translit)
+                x = angs(pgno, source_id, larivaar, steek, translit)
                 pages.append(x)
             gurbani['pages'] = pages
             return gurbani
@@ -148,6 +149,7 @@ def angs(angNo, sourceID='G', larivaar=False, steek=False, translit=False):
         return gurbani
 
 
+@lru_cache(maxsize=1)
 def hukamnama(year=y, month=m, day=d):
     link = url+'/hukamnamas/'+str(year)+'/'+str(month)+'/'+str(day)
     response = requests.get(link)
@@ -158,21 +160,21 @@ def hukamnama(year=y, month=m, day=d):
         hukam = {}
         bani = []
         for i in js['shabads']:
-            '''save({'shabadID': i['shabadInfo']['shabadId']})'''
             x = shabad(i['shabadInfo']['shabadId'])
             bani.append(x)
         hukam['hukam'] = bani
         return hukam
 
 
-def random(sourceID='G'):
-    link = url+'/random/'+sourceID
+def random(source_id='G'):
+    link = url+'/random/'+source_id
     response = requests.get(link)
     js = response.json()
     gurbani = shabad(js['shabadInfo']['shabadId'])
     return gurbani
 
 
+@lru_cache(maxsize=1)
 def banis():
     link = url+"/banis"
     response = requests.get(link)
@@ -187,8 +189,8 @@ def banis():
     return gurbani
 
 
-def bani(baniID, larivaar=False):
-    link = url+"/banis/"+str(baniID)
+def bani(bani_id, larivaar=False):
+    link = url+"/banis/"+str(bani_id)
     response = requests.get(link)
     js = response.json()
     gurbani = {}
@@ -219,6 +221,7 @@ def bani(baniID, larivaar=False):
     return gurbani
 
 
+@lru_cache(maxsize=1)
 def amritkeertan():
     link = url+'/amritkeertan'
     response = requests.get(link)
@@ -235,6 +238,7 @@ def amritkeertan():
     return aklist
 
 
+@lru_cache(maxsize=1)
 def amritkeertanindex():
     link = url+'/amritkeertan/index'
     response = requests.get(link)
@@ -261,8 +265,8 @@ def amritkeertanindex():
     return akindices
 
 
-def amritkeertansearch(headerID):
-    link = url+'/amritkeertan/index/'+str(headerID)
+def amritkeertansearch(header_id):
+    link = url+'/amritkeertan/index/'+str(header_id)
     response = requests.get(link)
     js = response.json()
     results = {}
@@ -289,8 +293,8 @@ def amritkeertansearch(headerID):
     return results
 
 
-def amritkeertanshabad(shabadID):
-    gurbani = shabad(shabadID)
+def amritkeertanshabad(shabad_id):
+    gurbani = shabad(shabad_id)
     return gurbani
 
 
@@ -299,8 +303,8 @@ def kosh(letter):
     response = requests.get(link)
     js = response.json()
     results = [['ਸ਼ਬਦ', 'Word']]
-    resCount = len(js)
-    for i in range(resCount):
+    res_count = len(js)
+    for i in range(res_count):
         word = js[i]
         results.append([word['wordUni'], word['word']])
     return results
@@ -327,13 +331,14 @@ def koshsearch(query):
     response = requests.get(link)
     js = response.json()
     results = []
-    resCount = len(js)
-    for i in range(resCount):
+    res_count = len(js)
+    for i in range(res_count):
         data = js[i]
         results.append([data['wordUni'], data['definitionUni']])
     return results
 
 
+@lru_cache(maxsize=1)
 def rehats():
     link = url+'/rehats'
     response = requests.get(link)
@@ -348,12 +353,12 @@ def rehats():
     return rehats
 
 
-def rehat(rehatID):
-    link = url+'/rehats/'+str(rehatID)
+def rehat(rehat_id):
+    link = url+'/rehats/'+str(rehat_id)
     response = requests.get(link)
     js = response.json()
     chapters = {
-        'Rehat ID': rehatID,
+        'Rehat ID': rehat_id,
         'chapters': []
         }
     for i in js['chapters']:
@@ -365,8 +370,8 @@ def rehat(rehatID):
     return chapters
 
 
-def rehatChapter(rehatID, chapterID):
-    link = url+'/rehats/'+str(rehatID)+'/chapters/'+str(chapterID)
+def rehatchapter(rehat_id, chapter_id):
+    link = url+'/rehats/'+str(rehat_id)+'/chapters/'+str(chapter_id)
     response = requests.get(link)
     js = response.json()
     tags = ['&', '<']
@@ -386,7 +391,7 @@ def rehatChapter(rehatID, chapterID):
     return chapter
 
 
-def rehatSearch(query):  # remove extra html tags from API
+def rehatsearch(query):  # remove extra html tags from API
     link = url+'/rehats/search/'+str(query)
     response = requests.get(link)
     js = response.json()
@@ -400,6 +405,7 @@ def rehatSearch(query):  # remove extra html tags from API
     return results
 
 
+@lru_cache(maxsize=1)
 def writers():
     link = url+'/writers'
     response = requests.get(link)
@@ -414,6 +420,7 @@ def writers():
     return writers
 
 
+@lru_cache(maxsize=1)
 def raags():
     link = url+'/raags'
     response = requests.get(link)
@@ -429,18 +436,19 @@ def raags():
     return raags
 
 
-def raag(RaagID):
+@lru_cache(maxsize=1)
+def raag(raag_id):
     link = url+'/raags'
     response = requests.get(link)
     js = response.json()
     result = []
     for row in js['rows'][5:]:
-        if row['RaagID'] == RaagID:
-            writerUrl = url+'/writers'
-            wres = requests.get(writerUrl)
+        if row['RaagID'] == raag_id:
+            writer_url = url+'/writers'
+            wres = requests.get(writer_url)
             wjs = wres.json()
             info = row['SourceInfo'][0]
-            raagData = {}
+            raag_data = {}
             data = {
                 'Raag ID': row['RaagID'],
                 'ਰਾਗੁ': row['RaagUnicode'],
@@ -465,16 +473,17 @@ def raag(RaagID):
                 }
             data['Writers'] = []
             for writer in row['Writers']:  # provides list of writer names
-                for writerRow in wjs['rows']:
-                    if writerRow['WriterID'] == writer:
-                        data['Writers'].append(writerRow['WriterEnglish'])
+                for writer_row in wjs['rows']:
+                    if writer_row['WriterID'] == writer:
+                        data['Writers'].append(writer_row['WriterEnglish'])
             for k in data.keys():  # removes empty or null data values
                 if data[k] is not None and data[k] != '':
-                    raagData[k] = data[k]
-            result.append(raagData)
+                    raag_data[k] = data[k]
+            result.append(raag_data)
     return result
 
 
+@lru_cache(maxsize=1)
 def sources():
     link = url+'/sources'
     response = requests.get(link)

@@ -1,26 +1,39 @@
+# -*- coding: utf-8 -*-
 
+__title__ = 'banidb'
+__author__ = 'Khalis Foundation'
+__license__ = 'MIT'
 __version__ = '0.1'
+__all__ = [
+    'searchtype', 'search', 'shabad', 'angs',
+    'hukamnama', 'random', 'banis', 'bani',
+    'amritkeertan', 'amritkeertanindex',
+    'amritkeertansearch', 'amritkeertanshabad',
+    'kosh', 'koshword', 'koshsearch', 'rehats',
+    'rehat', 'rehatsearch', 'rehatchapter',
+    'writers', 'raags', 'raag', 'sources'
+]
 
-from banidb.banidb import searchType
-from banidb.banidb import search
-from banidb.banidb import shabad
-from banidb.banidb import angs
-from banidb.banidb import hukamnama
-from banidb.banidb import random
-from banidb.banidb import banis
-from banidb.banidb import bani
-from banidb.banidb import amritkeertan
-from banidb.banidb import amritkeertanindex
-from banidb.banidb import amritkeertansearch
-from banidb.banidb import amritkeertanshabad
-from banidb.banidb import kosh
-from banidb.banidb import koshword
-from banidb.banidb import koshsearch
-from banidb.banidb import rehats
-from banidb.banidb import rehat
-from banidb.banidb import rehatChapter
-from banidb.banidb import rehatSearch
-from banidb.banidb import writers
-from banidb.banidb import raags
-from banidb.banidb import raag
-from banidb.banidb import sources
+from .banidb import searchtype
+from .banidb import search
+from .banidb import shabad
+from .banidb import angs
+from .banidb import hukamnama
+from .banidb import random
+from .banidb import banis
+from .banidb import bani
+from .banidb import amritkeertan
+from .banidb import amritkeertanindex
+from .banidb import amritkeertansearch
+from .banidb import amritkeertanshabad
+from .banidb import kosh
+from .banidb import koshword
+from .banidb import koshsearch
+from .banidb import rehats
+from .banidb import rehat
+from .banidb import rehatchapter
+from .banidb import rehatsearch
+from .banidb import writers
+from .banidb import raags
+from .banidb import raag
+from .banidb import sources
