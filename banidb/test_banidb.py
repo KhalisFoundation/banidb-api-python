@@ -9,6 +9,20 @@ def test_backend_up():
     assert js['ok'] is True
 
 
+def test_searchtype():
+    res = banidb.searchtype()
+    assert res == {
+        0: 'First letter each word from start (Gurmukhi)',
+        1: 'First letter each word anywhere (Gurmukhi)',
+        2: 'Full Word (Gurmukhi)',
+        3: 'Full Word Translation (English)',
+        4: 'Romanized Gurmukhi (English)',
+        5: 'Ang',
+        6: 'Main Letter (Gurmukhi)',
+        7: 'Romanized first letter anywhere (English)'
+    }
+
+
 def test_random():
     x = banidb.random()
     assert type(x) == dict
