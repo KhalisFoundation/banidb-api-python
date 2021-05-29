@@ -21,7 +21,7 @@ def test_backend_up(mock_get):
 
 @patch('banidb.banidb.requests.get')
 def test_search(mock_get):
-    search_res = banidb.search('jjcAhdh')
+    search_res = banidb.search('jmJdp')
     mock_get.return_value = Mock(ok=True)
     mock_get.return_value.json.return_value = search_res
     result = requests.get()

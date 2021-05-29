@@ -19,9 +19,9 @@ def searchtype():
         7: 'Romanized first letter anywhere (English)'
     }
     return types
-# add test for conditional err on query len < 3
 
 
+@lru_cache(maxsize=5)
 def search(query, searchtype=1, source='all', larivaar=False,
            ang=None, raag=None, writer='all', page=1, results=None):
     res = url+'/search/'+str(query)+'?'
@@ -59,7 +59,10 @@ def search(query, searchtype=1, source='all', larivaar=False,
                 verse_dict['lari'] = verse['larivaar']['unicode']
             else:
                 verse_dict['verse'] = verse['verse']['unicode']
-            verse_dict['steek'] = verse['translation']
+            verse_dict['steek'] = {
+                'en': verse['translation']['en']['bdb'],
+                'pu': verse['translation']['pu']['bdb']['unicode']
+                }
             verse_dict['source'] = {
                 'pu': verse['source']['unicode'],
                 'en': verse['source']['english'],
@@ -73,7 +76,7 @@ def search(query, searchtype=1, source='all', larivaar=False,
         if 'nextPage' in info['pages'].keys():
             res = info['pages']['nextPage']
     results['pagesData'] = pages
-    return results  # replace all d with results
+    return results
 
 
 @lru_cache(maxsize=5)  # understand and use everywhere
@@ -436,13 +439,13 @@ def raags():
     return raags
 
 
-@lru_cache(maxsize=1)
+@lru_cache(maxsize=50)
 def raag(raag_id):
     link = url+'/raags'
     response = requests.get(link)
     js = response.json()
     result = []
-    for row in js['rows'][5:]:
+    for row in js['rows'][1:]:
         if row['RaagID'] == raag_id:
             writer_url = url+'/writers'
             wres = requests.get(writer_url)
