@@ -1,10 +1,12 @@
 import requests
 import time
+from .history import LRUCache
 from functools import lru_cache
 y = time.localtime().tm_year
 m = time.localtime().tm_mon
 d = time.localtime().tm_mday
 url = 'https://api.banidb.com/v2'
+cache = LRUCache()  # provide capacity integer
 
 
 def searchtype():
@@ -21,7 +23,6 @@ def searchtype():
     return types
 
 
-@lru_cache(maxsize=5)
 def search(query, searchtype=1, source='all', larivaar=False,
            ang=None, raag=None, writer='all', page=1, results=None):
     res = url+'/search/'+str(query)+'?'
@@ -79,7 +80,6 @@ def search(query, searchtype=1, source='all', larivaar=False,
     return results
 
 
-@lru_cache(maxsize=5)  # understand and use everywhere
 def shabad(shabad_id, larivaar=False):
     link = url+'/shabads/'+str(shabad_id)
     data = requests.get(link)
@@ -106,6 +106,7 @@ def shabad(shabad_id, larivaar=False):
         line['transliteration'] = verse['transliteration']
         lines.append(line)
     shabad['verses'] = lines
+    LRUCache.put(time.asctime(time.localtime()), {"shabadId": shabad_id})
     return shabad
 
 
@@ -152,7 +153,6 @@ def angs(ang_no, source_id='G', larivaar=False, steek=False, translit=False):
         return gurbani
 
 
-@lru_cache(maxsize=1)
 def hukamnama(year=y, month=m, day=d):
     link = url+'/hukamnamas/'+str(year)+'/'+str(month)+'/'+str(day)
     response = requests.get(link)
@@ -163,6 +163,8 @@ def hukamnama(year=y, month=m, day=d):
         hukam = {}
         bani = []
         for i in js['shabads']:
+            LRUCache.put(time.asctime(time.localtime()),
+                         {"shabadId": i['shabadInfo']['shabadId']})
             x = shabad(i['shabadInfo']['shabadId'])
             bani.append(x)
         hukam['hukam'] = bani
@@ -174,6 +176,8 @@ def random(source_id='G'):
     response = requests.get(link)
     js = response.json()
     gurbani = shabad(js['shabadInfo']['shabadId'])
+    LRUCache.put(time.asctime(time.localtime()),
+                 {"shabadId": js['shabadInfo']['shabadId']})
     return gurbani
 
 
@@ -211,7 +215,7 @@ def bani(bani_id, larivaar=False):
     verses = []
     for i in js['verses']:
         verse = i['verse']
-        data = {}  # shall be converted to easily accessible dictionary
+        data = {}
         data['verseId'] = verse['verseId']
         if larivaar is True:
             data['verse'] = verse['larivaar']['unicode']
@@ -356,6 +360,7 @@ def rehats():
     return rehats
 
 
+@lru_cache(maxsize=4)
 def rehat(rehat_id):
     link = url+'/rehats/'+str(rehat_id)
     response = requests.get(link)
@@ -439,7 +444,6 @@ def raags():
     return raags
 
 
-@lru_cache(maxsize=50)
 def raag(raag_id):
     link = url+'/raags'
     response = requests.get(link)
