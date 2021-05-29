@@ -11,7 +11,7 @@ If doesn't, new cache OrderedDict is created and then dumped in .dat
 class LRUCache:
 
     # initialising capacity
-    def __init__(self, capacity: int):
+    def __init__(self, capacity: int = 25):
         try:
             f = open('cache.dat', 'rb')
             data = pickle.load(f)
