@@ -1,7 +1,7 @@
 # BaniDB.[py](https://pypi.org/user/KhalisFoundation/)
 ### _Python package for BaniDB API_
 
-[<img height=100 src='banidb.svg'>](http://banidb.com)
+[<img height=100 src='/banidb.svg'>](http://banidb.com)
 
 
 ### Installation
