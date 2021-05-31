@@ -24,10 +24,10 @@ setup(
         'Sundar Gutka'
     ],
     install_requires=['requests'],
-    author_email='',
+    author_email='python@khalis.info',
     download_url='',
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'Topic :: Software Development :: Build Tools',
         'License :: OSI Approved :: MIT License',
@@ -42,5 +42,6 @@ setup(
     project_urls={
         'Documentation': '',
         'Source': 'https://github.com/KhalisFoundation/banidb-api-python',
+        'Bug Tracker': 'https://git.io/JG4II'
     },
 )
