@@ -1,4 +1,4 @@
-# BaniDB[.](.)py
+# BaniDB.py
 ### _Python package for BaniDB API_
 
 [<img height=100 src='banidb.svg'>](http://banidb.com)
