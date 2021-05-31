@@ -1,8 +1,6 @@
 # BaniDB.[py](https://pypi.org/user/KhalisFoundation/)
 ### _Python package for BaniDB API_
 
-[<img height=100 src='/banidb.svg'>](http://banidb.com)
-
 
 ### Installation
 - Run [`pip install banidb`](https://pypi.org/project/banidb/) in your root directory
