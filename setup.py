@@ -1,13 +1,13 @@
 from setuptools import setup
 
 with open('README.md', 'r') as f:
-    README = f
+    README = f.read()
 
 setup(
     name='banidb',
     version='0.1',
     license='MIT',
-    description='BaniDB API for Python',
+    description='Python Package for BaniDB API',
     long_description=README,
     long_description_content_type='text/markdown',
     author='Khalis Foundation',
@@ -42,6 +42,6 @@ setup(
     project_urls={
         'Documentation': '',
         'Source': 'https://github.com/KhalisFoundation/banidb-api-python',
-        'Bug Tracker': 'https://git.io/JG4II'
+        'Issues': 'https://git.io/JG4II'
     },
 )
