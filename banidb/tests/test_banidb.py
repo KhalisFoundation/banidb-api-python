@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import requests
 import json
+import pytest
 import banidb
 
 url = 'https://api.banidb.com/v2'
