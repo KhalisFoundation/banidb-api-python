@@ -5,16 +5,17 @@ __author__ = 'Khalis Foundation'
 __license__ = 'MIT'
 __version__ = '0.1'
 __all__ = [
-    'searchtype', 'search', 'shabad', 'angs',
+    'search_type', 'search', 'shabad', 'angs',
     'hukamnama', 'random', 'banis', 'bani',
-    'amritkeertan', 'amritkeertanindex',
-    'amritkeertansearch', 'amritkeertanshabad',
-    'kosh', 'koshword', 'koshsearch', 'rehats',
-    'rehat', 'rehatsearch', 'rehatchapter',
-    'writers', 'raags', 'raag', 'sources', 'clear'
+    'amritkeertan', 'amritkeertan_index',
+    'amritkeertan_search', 'amritkeertan_shabad',
+    'kosh', 'kosh_word', 'kosh_search', 'rehats',
+    'rehat', 'rehat_search', 'rehat_chapter',
+    'writers', 'raags', 'raag', 'sources', 'history',
+    'LRUCache'
 ]
 
-from .banidb import searchtype
+from .banidb import search_type
 from .banidb import search
 from .banidb import shabad
 from .banidb import angs
@@ -23,18 +24,19 @@ from .banidb import random
 from .banidb import banis
 from .banidb import bani
 from .banidb import amritkeertan
-from .banidb import amritkeertanindex
-from .banidb import amritkeertansearch
-from .banidb import amritkeertanshabad
+from .banidb import amritkeertan_index
+from .banidb import amritkeertan_search
+from .banidb import amritkeertan_shabad
 from .banidb import kosh
-from .banidb import koshword
-from .banidb import koshsearch
+from .banidb import kosh_word
+from .banidb import kosh_search
 from .banidb import rehats
 from .banidb import rehat
-from .banidb import rehatchapter
-from .banidb import rehatsearch
+from .banidb import rehat_chapter
+from .banidb import rehat_search
 from .banidb import writers
 from .banidb import raags
 from .banidb import raag
 from .banidb import sources
-from .history import clear
+from .banidb import history
+from .history import LRUCache

@@ -1,15 +1,17 @@
 import requests
 import time
-from .history import LRUCache
 from functools import lru_cache
+from .history import LRUCache
+
+cache = LRUCache('cache.dat', 25)
+
 y = time.localtime().tm_year
 m = time.localtime().tm_mon
 d = time.localtime().tm_mday
 url = 'https://api.banidb.com/v2'
-cache = LRUCache()  # provide capacity integer
 
 
-def searchtype():
+def search_type():
     types = {
         0: 'First letter each word from start (Gurmukhi)',
         1: 'First letter each word anywhere (Gurmukhi)',
@@ -25,8 +27,8 @@ def searchtype():
 
 def search(query, searchtype=1, source='all', larivaar=False,
            ang=None, raag=None, writer='all', page=1, results=None):
-    res = url+'/search/'+str(query)+'?'
-    urladd = {
+    res = f"{url}/search/{query}?"
+    url_address = {
         'searchtype': searchtype,
         'source': source,
         'ang': ang,
@@ -35,27 +37,25 @@ def search(query, searchtype=1, source='all', larivaar=False,
         'page': page,
         'results': results
         }
-    for i in urladd.keys():
-        res += i+'='+str(urladd[i])+'&'
-    results = {}
+    for i in url_address.keys():
+        res = f"{res}{i}={url_address[i]}&"
     response = requests.get(res)
-    js = response.json()
-    info = js['resultsInfo']
+    json_blob = response.json()
+    info = json_blob['resultsInfo']
     total_res = info['totalResults']
-    results['totalResults'] = total_res
+    results = {'total_results': total_res}
     current_page = info['pages']['page']
     total_pages = info['pages']['totalPages']  # Total Pages
-    results['totalPages'] = total_pages
+    results['total_pages'] = total_pages
     pages = {}
     for page in range(current_page, total_pages+1):
         response = requests.get(res)
-        js = response.json()
-        info = js['resultsInfo']
-        pg = 'Page'+str(page)
+        json_blob = response.json()
+        info = json_blob['resultsInfo']
+        pg = f"page_{page}"
         verses = []
-        for verse in js['verses']:
-            verse_dict = {}
-            verse_dict['shabadId'] = verse['shabadId']
+        for verse in json_blob['verses']:
+            verse_dict = {'shabad_id': verse['shabadId']}
             if larivaar is True:
                 verse_dict['lari'] = verse['larivaar']['unicode']
             else:
@@ -76,24 +76,23 @@ def search(query, searchtype=1, source='all', larivaar=False,
         pages[pg] = verses
         if 'nextPage' in info['pages'].keys():
             res = info['pages']['nextPage']
-    results['pagesData'] = pages
+    results['pages_data'] = pages
     return results
 
 
+@lru_cache(maxsize=5)
 def shabad(shabad_id, larivaar=False):
-    link = url+'/shabads/'+str(shabad_id)
+    link = f"{url}/shabads/{shabad_id}"
     data = requests.get(link)
-    js = data.json()
-    info = js['shabadInfo']
-    shabad = {}
-    shabad['sourceUni'] = info['source']['unicode']
-    shabad['sourceEng'] = info['source']['english']
+    json_blob = data.json()
+    info = json_blob['shabadInfo']
+    shabad = {'source_uni': info['source']['unicode']}
+    shabad['source_eng'] = info['source']['english']
     shabad['writer'] = info['writer']['english']
     shabad['ang'] = info['source']['pageNo']
     lines = []
-    for verse in js['verses']:
-        line = {}
-        line['verseID'] = verse['verseId']
+    for verse in json_blob['verses']:
+        line = {'verse_id': verse['verseId']}
         if larivaar is True:
             if verse['larivaar']['unicode'] is not None:
                 if verse['larivaar']['unicode'] != '':
@@ -106,7 +105,7 @@ def shabad(shabad_id, larivaar=False):
         line['transliteration'] = verse['transliteration']
         lines.append(line)
     shabad['verses'] = lines
-    LRUCache.put(time.asctime(time.localtime()), {"shabadId": shabad_id})
+    cache.put(shabad_id, shabad)
     return shabad
 
 
@@ -114,32 +113,32 @@ def angs(ang_no, source_id='G', larivaar=False, steek=False, translit=False):
     if source_id == 'G':
         if 0 >= ang_no or ang_no > 1430:
             raise ValueError('Ang does not exist!')
-    link = url+'/angs/'+str(ang_no)+'/'+str(source_id)
+    link = f"{url}/angs/{ang_no}/{source_id}"
     response = requests.get(link)
-    js = response.json()
-    if 'error' in js.keys():
-        return js['data']['error']
+    json_blob = response.json()
+    if 'error' in json_blob.keys():
+        return json_blob['data']['error']
     else:
         gurbani = {}
-        if 'pageNos' in js.keys():
+        if 'pageNos' in json_blob.keys():
             pages = []
-            for pgno in js['pageNos']:
+            for pgno in json_blob['pageNos']:
                 x = angs(pgno, source_id, larivaar, steek, translit)
                 pages.append(x)
             gurbani['pages'] = pages
             return gurbani
         else:
             gurbani['source'] = {
-                'sourceId': js['source']['sourceId'],
-                'unicode': js['source']['unicode'],
-                'english': js['source']['english'],
-                'angNo': js['source']['pageNo']
+                'source_id': json_blob['source']['sourceId'],
+                'unicode': json_blob['source']['unicode'],
+                'english': json_blob['source']['english'],
+                'ang_no': json_blob['source']['pageNo']
                 }
             page = []
-            for verse in js['page']:
+            for verse in json_blob['page']:
                 ang = {}
-                ang['verseId'] = verse['verseId']
-                ang['shabadId'] = verse['shabadId']
+                ang['verse_id'] = verse['verseId']
+                ang['shabad_id'] = verse['shabadId']
                 if larivaar is True:
                     ang['verse'] = verse['larivaar']['unicode']
                 else:
@@ -154,42 +153,40 @@ def angs(ang_no, source_id='G', larivaar=False, steek=False, translit=False):
 
 
 def hukamnama(year=y, month=m, day=d):
-    link = url+'/hukamnamas/'+str(year)+'/'+str(month)+'/'+str(day)
+    link = f"{url}/hukamnamas/{year}/{month}/{day}"
     response = requests.get(link)
-    js = response.json()
-    if 'error' in js.keys():
-        return(js['data']['error'])
+    json_blob = response.json()
+    if 'error' in json_blob.keys():
+        return(json_blob['data']['error'])
     else:
         hukam = {}
         bani = []
-        for i in js['shabads']:
-            LRUCache.put(time.asctime(time.localtime()),
-                         {"shabadId": i['shabadInfo']['shabadId']})
+        for i in json_blob['shabads']:
             x = shabad(i['shabadInfo']['shabadId'])
+            cache.put(i['shabadInfo']['shabadId'], x)
             bani.append(x)
         hukam['hukam'] = bani
         return hukam
 
 
 def random(source_id='G'):
-    link = url+'/random/'+source_id
+    link = f"{url}/random/{source_id}"
     response = requests.get(link)
-    js = response.json()
-    gurbani = shabad(js['shabadInfo']['shabadId'])
-    LRUCache.put(time.asctime(time.localtime()),
-                 {"shabadId": js['shabadInfo']['shabadId']})
+    json_blob = response.json()
+    gurbani = shabad(json_blob['shabadInfo']['shabadId'])
+    cache.put(json_blob['shabadInfo']['shabadId'], gurbani)
     return gurbani
 
 
 @lru_cache(maxsize=1)
 def banis():
-    link = url+"/banis"
+    link = f"{url}/banis"
     response = requests.get(link)
-    js = response.json()
-    gurbani = {'Bani ID': ['gurmukhiUni', 'transliterations']}
-    for bani in js:
+    json_blob = response.json()
+    gurbani = {'bani_id': ['gurmukhiUni', 'transliterations']}
+    for bani in json_blob:
         gurbani[bani['ID']] = []
-        data = ['gurmukhiUni', 'transliterations']
+        data = ['gurmukhi_uni', 'transliterations']
         for k in data:
             if bani[k] is not None:
                 gurbani[bani['ID']].append(bani[k])
@@ -197,26 +194,25 @@ def banis():
 
 
 def bani(bani_id, larivaar=False):
-    link = url+"/banis/"+str(bani_id)
+    link = f"{url}/banis/{bani_id}"
     response = requests.get(link)
-    js = response.json()
-    gurbani = {}
-    info = js['baniInfo']
-    gurbani["Info"] = {
-        'baniID': info['baniID'],
-        'unicode': info['unicode'],
-        'english': info['english'],
-        'hindi': info['hindi'],
-        'ipa': info['ipa'],
-        'urdu': info['ur']
-        }
+    json_blob = response.json()
+    info = json_blob['baniInfo']
+    gurbani = {
+        "info": {
+            'baniID': info['baniID'],
+            'unicode': info['unicode'],
+            'english': info['english'],
+            'hindi': info['hindi'],
+            'ipa': info['ipa'],
+            'urdu': info['ur']
+        }}
     gurbani['raag'] = info['raag']
     gurbani['source'] = info['source']
     verses = []
-    for i in js['verses']:
+    for i in json_blob['verses']:
         verse = i['verse']
-        data = {}
-        data['verseId'] = verse['verseId']
+        data = {'verse_id': verse['verseId']}
         if larivaar is True:
             data['verse'] = verse['larivaar']['unicode']
         else:
@@ -224,45 +220,45 @@ def bani(bani_id, larivaar=False):
         data['steek'] = verse['translation']
         data['translit'] = verse['transliteration']
         verses.append(data)
-    gurbani['Verse'] = verses
+    gurbani['verses'] = verses
     return gurbani
 
 
 @lru_cache(maxsize=1)
 def amritkeertan():
-    link = url+'/amritkeertan'
+    link = f"{url}/amritkeertan"
     response = requests.get(link)
-    js = response.json()
+    json_blob = response.json()
     aklist = []
-    for header in js['headers']:
+    for header in json_blob['headers']:
         data = {
-            'Header ID': header['HeaderID'],
-            'GurmukhiUni': header['GurmukhiUni'],
-            'Gurmukhi': header['Gurmukhi'],
-            'Translit': header['Transliterations']
+            'header_id': header['HeaderID'],
+            'gurmukhi_uni': header['GurmukhiUni'],
+            'gurmukhi': header['Gurmukhi'],
+            'translit': header['Transliterations']
             }
         aklist.append(data)
     return aklist
 
 
 @lru_cache(maxsize=1)
-def amritkeertanindex():
-    link = url+'/amritkeertan/index'
+def amritkeertan_index():
+    link = f"{url}/amritkeertan/index"
     response = requests.get(link)
-    js = response.json()
+    json_blob = response.json()
     akindices = {}
-    for i in js['index']:
+    for i in json_blob['index']:
         data = {
-            'IndexID': i['IndexID'],
-            'HeaderID': i['HeaderID'],
-            'ShabadID': i['ShabadID'],
-            'Gurmukhi': i['GurmukhiUni'],
-            'Steek': i['Translations'],
-            'Translit': i['Transliterations'],
-            'SourceID': i['SourceID'],
-            'Ang': i['Ang'],
-            'Writer': i['WriterEnglish'],
-            'RaagID': i['RaagID']
+            'index_id': i['IndexID'],
+            'header_id': i['HeaderID'],
+            'shabad_id': i['ShabadID'],
+            'gurmukhi_uni': i['GurmukhiUni'],
+            'steek': i['Translations'],
+            'translit': i['Transliterations'],
+            'source_id': i['SourceID'],
+            'ang': i['Ang'],
+            'writer': i['WriterEnglish'],
+            'raag_id': i['RaagID']
         }
         fdata = {}
         for k in data:
@@ -272,89 +268,90 @@ def amritkeertanindex():
     return akindices
 
 
-def amritkeertansearch(header_id):
-    link = url+'/amritkeertan/index/'+str(header_id)
+def amritkeertan_search(header_id):
+    link = f"{url}/amritkeertan/index/{header_id}"
     response = requests.get(link)
-    js = response.json()
-    results = {}
-    header = js['header'][0]
-    results['Header ID'] = header['HeaderID']
-    results['Gurmukhi'] = header['GurmukhiUni']
-    results['Translit'] = header['Transliterations']
+    json_blob = response.json()
+    header = json_blob['header'][0]
+    results = {
+        'Header ID': header['HeaderID'],
+        'Gurmukhi': header['GurmukhiUni'],
+        'Translit': header['Transliterations']
+    }
     banis = []
-    for index in js['index']:
+    for index in json_blob['index']:
         data = {
-            'IndexID': index['IndexID'],
-            'HeaderID': index['HeaderID'],
-            'ShabadID': index['ShabadID'],
-            'Gurmukhi': index['GurmukhiUni'],
-            'Steek': index['Translations'],
-            'Translit': index['Transliterations'],
-            'SourceID': index['SourceID'],
-            'Ang': index['Ang'],
-            'Writer': index['WriterEnglish'],
-            'RaagID': index['RaagID']
+            'index_id': index['IndexID'],
+            'header_id': index['HeaderID'],
+            'shabad_id': index['ShabadID'],
+            'gurmukhi_uni': index['GurmukhiUni'],
+            'steek': index['Translations'],
+            'translit': index['Transliterations'],
+            'source_id': index['SourceID'],
+            'ang': index['Ang'],
+            'writer': index['WriterEnglish'],
+            'raag_id': index['RaagID']
         }
         banis.append(data)
-    results['Banis'] = banis
+    results['banis'] = banis
     return results
 
 
-def amritkeertanshabad(shabad_id):
+def amritkeertan_shabad(shabad_id):
     gurbani = shabad(shabad_id)
     return gurbani
 
 
 def kosh(letter):
-    link = url+'/kosh/'+str(letter)
+    link = f"{url}/kosh/{letter}"
     response = requests.get(link)
-    js = response.json()
+    json_blob = response.json()
     results = [['ਸ਼ਬਦ', 'Word']]
-    res_count = len(js)
+    res_count = len(json_blob)
     for i in range(res_count):
-        word = js[i]
-        results.append([word['wordUni'], word['word']])
+        word = json_blob[i]
+        results.append([word['word_uni'], word['word']])
     return results
 
 
-def koshword(word):
-    link = url+'/kosh/word/'+str(word)
+def kosh_word(word):
+    link = f"{url}/kosh/word/{word}"
     response = requests.get(link)
-    js = response.json()
+    json_blob = response.json()
     results = []
-    for word in js:
+    for word in json_blob:
         data = {
-            'wordUni': word['wordUni'],
+            'word_uni': word['wordUni'],
             'word': word['word'],
-            'defUni': word['definitionUni'],
+            'def_uni': word['definitionUni'],
             'def': word['definition']
         }
         results.append(data)
     return results
 
 
-def koshsearch(query):
-    link = url+'/kosh/search/'+str(query)
+def kosh_search(query):
+    link = f"{url}/kosh/search/{query}"
     response = requests.get(link)
-    js = response.json()
+    json_blob = response.json()
     results = []
-    res_count = len(js)
+    res_count = len(json_blob)
     for i in range(res_count):
-        data = js[i]
+        data = json_blob[i]
         results.append([data['wordUni'], data['definitionUni']])
     return results
 
 
 @lru_cache(maxsize=1)
 def rehats():
-    link = url+'/rehats'
+    link = f"{url}/rehats"
     response = requests.get(link)
-    js = response.json()
+    json_blob = response.json()
     rehats = []
-    for i in js['maryadas']:
+    for i in json_blob['maryadas']:
         data = {
-            'rehatID': i['rehatID'],
-            'rehatName': i['rehatName']
+            'rehat_id': i['rehatID'],
+            'rehat_name': i['rehatName']
         }
         rehats.append(data)
     return rehats
@@ -362,28 +359,28 @@ def rehats():
 
 @lru_cache(maxsize=4)
 def rehat(rehat_id):
-    link = url+'/rehats/'+str(rehat_id)
+    link = f"{url}/rehats/{rehat_id}"
     response = requests.get(link)
-    js = response.json()
+    json_blob = response.json()
     chapters = {
-        'Rehat ID': rehat_id,
+        'rehat_id': rehat_id,
         'chapters': []
         }
-    for i in js['chapters']:
+    for i in json_blob['chapters']:
         chapter = {
-            'Chapter ID': i['chapterID'],
-            'Chapter Name': i['chapterName']
+            'chapter_id': i['chapterID'],
+            'chapter_name': i['chapterName']
             }
         chapters['chapters'].append(chapter)
     return chapters
 
 
-def rehatchapter(rehat_id, chapter_id):
-    link = url+'/rehats/'+str(rehat_id)+'/chapters/'+str(chapter_id)
+def rehat_chapter(rehat_id, chapter_id):
+    link = f"{url}/rehats/{rehat_id}/chapters/{chapter_id}"
     response = requests.get(link)
-    js = response.json()
+    json_blob = response.json()
     tags = ['&', '<']
-    chapter = js
+    chapter = json_blob
     content = chapter['chapters'][0]['chapterContent']
     for i in content:
         if i in tags:
@@ -399,15 +396,15 @@ def rehatchapter(rehat_id, chapter_id):
     return chapter
 
 
-def rehatsearch(query):  # remove extra html tags from API
-    link = url+'/rehats/search/'+str(query)
+def rehat_search(query):  # remove extra html tags from API
+    link = f"{url}/rehats/search/{query}"
     response = requests.get(link)
-    js = response.json()
+    json_blob = response.json()
     results = []
-    for i in js['rows']:
+    for i in json_blob['rows']:
         chapter = {
-            'chapterID': i['chapterID'],
-            'chapterName': i['chapterName']
+            'chapter_id': i['chapterID'],
+            'chapter_name': i['chapterName']
             }
         results.append(chapter)
     return results
@@ -415,74 +412,77 @@ def rehatsearch(query):  # remove extra html tags from API
 
 @lru_cache(maxsize=1)
 def writers():
-    link = url+'/writers'
+    link = f"{url}/writers"
     response = requests.get(link)
-    js = response.json()
+    json_blob = response.json()
     writers = []
-    for row in js['rows'][1:]:
+    for row in json_blob['rows'][1:]:
         writer = {
-            'WriterID': row['WriterID'],
-            'WriterName': row['WriterEnglish']
+            'writer_id': row['WriterID'],
+            'writer_name': row['WriterEnglish']
             }
         writers.append(writer)
     return writers
 
 
-@lru_cache(maxsize=1)
 def raags():
-    link = url+'/raags'
-    response = requests.get(link)
-    js = response.json()
-    raags = []
-    for row in js['rows'][1:]:
-        raag = {
-            'RaagID': row['RaagID'],
-            'RaagUni': row['RaagUnicode'],
-            'RaagEng': row['RaagEnglish']
-            }
-        raags.append(raag)
+    if 'raags' in cache.get().keys():
+        raags = cache.get()['raags']
+    else:
+        link = f"{url}/raags"
+        response = requests.get(link)
+        json_blob = response.json()
+        raags = []
+        for row in json_blob['rows'][1:]:
+            raag = {
+                'raag_id': row['RaagID'],
+                'raag_uni': row['RaagUnicode'],
+                'raag_eng': row['RaagEnglish']
+                }
+            raags.append(raag)
+        cache.put('raags', raags)
     return raags
 
 
 def raag(raag_id):
-    link = url+'/raags'
+    link = f"{url}/raags"
     response = requests.get(link)
-    js = response.json()
+    json_blob = response.json()
     result = []
-    for row in js['rows'][1:]:
+    for row in json_blob['rows'][1:]:
         if row['RaagID'] == raag_id:
-            writer_url = url+'/writers'
+            writer_url = f"{url}/writers"
             wres = requests.get(writer_url)
             wjs = wres.json()
             info = row['SourceInfo'][0]
             raag_data = {}
             data = {
-                'Raag ID': row['RaagID'],
-                'ਰਾਗੁ': row['RaagUnicode'],
-                'Raag': row['RaagEnglish']+'\n',
-                'TimeOfRaag': (row['StartTime'], row['EndTime']),
-                'CommonThemes': row['CommonThemes'],
-                'Feeling': row['Feeling'],
-                'Angs': {info['SourceID']: [info['Start'], info['End']]},
-                'Overview': row['Overview'],
-                'Advanced': row['Advanced'],
-                'MusicalComposure': row['MusicalComposure'],
-                'Placement': row['Placement'],
-                'Season': row['Season'],
-                'Sargun': '',
-                'Aroh': row['Sargun']['Aroh'],
-                'Avroh': row['Sargun']['Avroh'],
-                'Vadi': row['Sargun']['Vadi'],
-                'Samvadi': row['Sargun']['Samvadi'],
-                'Sur': row['Sargun']['Sur'],
-                'Thaat': row['Sargun']['Thaat'],
-                'Jaati': row['Jaati']
+                'raag_id': row['RaagID'],
+                'raag_uni': row['RaagUnicode'],
+                'raag': row['RaagEnglish']+'\n',
+                'time_of_raag': (row['StartTime'], row['EndTime']),
+                'common_themes': row['CommonThemes'],
+                'feeling': row['Feeling'],
+                'angs': {info['SourceID']: [info['Start'], info['End']]},
+                'overview': row['Overview'],
+                'advanced': row['Advanced'],
+                'musical_composure': row['MusicalComposure'],
+                'placement': row['Placement'],
+                'season': row['Season'],
+                'sargun': '',
+                'aroh': row['Sargun']['Aroh'],
+                'avroh': row['Sargun']['Avroh'],
+                'vadi': row['Sargun']['Vadi'],
+                'samvadi': row['Sargun']['Samvadi'],
+                'sur': row['Sargun']['Sur'],
+                'thaat': row['Sargun']['Thaat'],
+                'jaati': row['Jaati']
                 }
-            data['Writers'] = []
+            data['writers'] = []
             for writer in row['Writers']:  # provides list of writer names
                 for writer_row in wjs['rows']:
                     if writer_row['WriterID'] == writer:
-                        data['Writers'].append(writer_row['WriterEnglish'])
+                        data['writers'].append(writer_row['WriterEnglish'])
             for k in data.keys():  # removes empty or null data values
                 if data[k] is not None and data[k] != '':
                     raag_data[k] = data[k]
@@ -494,13 +494,30 @@ def raag(raag_id):
 def sources():
     link = url+'/sources'
     response = requests.get(link)
-    js = response.json()
+    json_blob = response.json()
     result = []
-    for row in js['rows']:
+    for row in json_blob['rows']:
         source = {
-            'SourceID': row['SourceID'],
-            'SourceUni': row['SourceUnicode'],
-            'SourceEng': row['SourceEnglish']
+            'source_id': row['SourceID'],
+            'source_uni': row['SourceUnicode'],
+            'source_eng': row['SourceEnglish']
             }
         result.append(source)
     return result
+
+
+def history():
+    history = cache.get()
+    if 'empty' not in history:
+        data = list(history.keys())  # lru as a stack
+        for i in data:
+            if type(i) != int:
+                data.pop(data.index(i))
+        if data != []:
+            data = data[len(data)::-1]
+            result = f"Frequently used Shabad Ids: {data}"
+    else:
+        result = history
+    return result
+# Add different history availability options
+# for eg, Shabad_ids history, Raags, etc
