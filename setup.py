@@ -23,7 +23,7 @@ setup(
         'Amrit Keertan',
         'Sundar Gutka'
     ],
-    install_requires=['requests'],
+    install_requires=['requests', 'requests_mock'],
     author_email='python@khalis.info',
     download_url='',
     classifiers=[
