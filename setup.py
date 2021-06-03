@@ -2,6 +2,10 @@ from setuptools import setup
 
 with open('README.md', 'r') as f:
     README = f.read()
+with open('requirements.txt') as f:
+    required = f.read().splitlines()
+with open('banidb/tests/requirements-test.txt') as f:
+    required += f.read().splitlines()
 
 setup(
     name='banidb',
@@ -23,7 +27,7 @@ setup(
         'Amrit Keertan',
         'Sundar Gutka'
     ],
-    install_requires=['requests', 'requests_mock'],
+    install_requires=required,
     author_email='python@khalis.info',
     download_url='',
     classifiers=[
