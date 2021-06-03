@@ -4,7 +4,7 @@ with open('README.md', 'r') as f:
     README = f.read()
 with open('requirements.txt') as f:
     required = f.read().splitlines()
-with open('banidb/tests/requirements-test.txt') as f:
+with open('tests/requirements-test.txt') as f:
     required += f.read().splitlines()
 
 setup(

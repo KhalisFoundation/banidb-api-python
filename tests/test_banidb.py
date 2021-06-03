@@ -2,12 +2,12 @@
 import requests
 import json
 import banidb
-import pytest
+from requests_mock.mocker import Mocker
 
 url = 'https://api.banidb.com/v2'
 
 
-def test_backend_up(requests_mock):
+def test_backend_up(requests_mock: Mocker):
     back_url = f"{url}/health"
     result = {"ok": True}
     json_blob = json.loads(json.dumps(result))
@@ -23,7 +23,7 @@ def test_backend_up(requests_mock):
     assert result is True
 
 
-def test_shabad_ok_larivaar_false(requests_mock):
+def test_shabad_ok_larivaar_false(requests_mock: Mocker):
     shabad_url = f"{url}/shabads/1111"
     result = {
         "shabadInfo": {
@@ -92,7 +92,7 @@ def test_shabad_ok_larivaar_false(requests_mock):
     assert 'larivaar' not in result['verses'][0]
 
 
-def test_shabad_ok_larivaar_true(requests_mock):
+def test_shabad_ok_larivaar_true(requests_mock: Mocker):
     shabad_url = f"{url}/shabads/1111"
     result = {
         "shabadInfo": {
@@ -158,7 +158,7 @@ def test_shabad_ok_larivaar_true(requests_mock):
     }
 
 
-def test_shabad_not_ok_larivaar_false(requests_mock):
+def test_shabad_not_ok_larivaar_false(requests_mock: Mocker):
     result = banidb.shabad(1111)
 
     assert result['source_uni'] == 'source-unicode-ਸ੍ਰੀ'
