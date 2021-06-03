@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import requests
 import json
-import pytest
 import banidb
+import requests_mock
 
 url = 'https://api.banidb.com/v2'
 
