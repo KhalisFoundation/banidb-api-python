@@ -2,7 +2,7 @@
 import requests
 import json
 import banidb
-import requests_mock
+import pytest
 
 url = 'https://api.banidb.com/v2'
 
