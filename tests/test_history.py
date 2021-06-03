@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from banidb import LRUCache
+from banidb.banidb import LRUCache
 
 url = 'https://api.banidb.com/v2'
 target = 'mock.dat'

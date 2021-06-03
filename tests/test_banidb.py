@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 import requests
 import json
-import banidb
+import banidb.banidb
 import pytest
-import sys
-sys.path.append('C:/Users/Gurmehar Singh/Desktop/Khalis/banidb-api-python/banidb')
 
 url = 'https://api.banidb.com/v2'
 
