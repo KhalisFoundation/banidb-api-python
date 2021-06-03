@@ -44,4 +44,9 @@ setup(
         'Source': 'https://github.com/KhalisFoundation/banidb-api-python',
         'Issues': 'https://git.io/JG4II'
     },
+    entry_points={
+        'pytest11': [
+            'requests_mock = requests_mock.pytest_plugin',
+        ]
+    },
 )
