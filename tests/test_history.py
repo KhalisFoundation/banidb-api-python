@@ -51,8 +51,5 @@ def test_put():
     assert result == shabad
     check = cache.check(1111)
     assert check[0] is True
-
-
-def test_clear():
     cache.clear()
     assert cache.get() == {}
