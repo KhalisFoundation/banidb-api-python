@@ -52,4 +52,4 @@ def test_put():
     check = cache.check(1111)
     assert check[0] is True
     cache.clear()
-    assert cache.get() == {}
+    assert cache.get() == {'empty': True}

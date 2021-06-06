@@ -11,7 +11,8 @@ __all__ = [
     'amritkeertan_search', 'amritkeertan_shabad',
     'kosh', 'kosh_word', 'kosh_search', 'rehats',
     'rehat', 'rehat_search', 'rehat_chapter',
-    'writers', 'raags', 'raag', 'sources', 'history'
+    'writers', 'raags', 'raag', 'sources',
+    'history', 'clear'
 ]
 
 from banidb.banidb import search_type
@@ -38,3 +39,4 @@ from banidb.banidb import raags
 from banidb.banidb import raag
 from banidb.banidb import sources
 from banidb.banidb import history
+from banidb.banidb import clear

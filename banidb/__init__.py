@@ -12,7 +12,7 @@ __all__ = [
     'kosh', 'kosh_word', 'kosh_search', 'rehats',
     'rehat', 'rehat_search', 'rehat_chapter',
     'writers', 'raags', 'raag', 'sources', 'history',
-    'LRUCache'
+    'LRUCache', 'clear'
 ]
 
 from .banidb import search_type
@@ -39,4 +39,5 @@ from .banidb import raags
 from .banidb import raag
 from .banidb import sources
 from .banidb import history
+from .banidb import clear
 from .history import LRUCache

@@ -40,7 +40,10 @@ class LRUCache:
             with open(self.target, "rb") as f:
                 data = pickle.load(f)
                 self.cache = data[0]
-                result = dict(self.cache)
+                if dict(self.cache) == {}:
+                    result = {'empty': True}
+                else:
+                    result = dict(self.cache)
         else:
             result = {'empty': True}
         return result
@@ -64,7 +67,7 @@ class LRUCache:
         pickle.dump(res, f)
         f.close()
 
-    def check(self, key) -> dict:
+    def check(self, key) -> list:
         if os.path.getsize(self.target) > 0:
             with open(self.target, "rb") as f:
                 data = pickle.load(f)
@@ -75,7 +78,7 @@ class LRUCache:
                 else:
                     return [False]
         else:
-            return None
+            return [False]
 
     def clear(self):
         if os.path.getsize(self.target) > 0:
@@ -83,10 +86,8 @@ class LRUCache:
                 data = pickle.load(f)
                 self.cache = data[0]
                 result = dict(self.cache)
-        print(result.keys())
         for i in result.keys():
-            if type(i) == int:
-                self.cache.popitem(i)
+            self.cache.popitem(i)
         f = open(self.target, 'wb')
         result = [self.cache, self.capacity]
         pickle.dump(result, f)
