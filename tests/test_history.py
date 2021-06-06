@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
-from banidb.banidb import LRUCache
+from banidb.history import LRUCache
+import pytest
 
 url = 'https://api.banidb.com/v2'
 target = 'mock.dat'
 cache = LRUCache(target, 25)
 
 
-def test_put():
+@pytest.fixture()
+def put():
     shabad = {
         "shabadInfo": {
             "shabadId": 1111,
@@ -47,9 +49,19 @@ def test_put():
                   }]
         }
     cache.put(1111, shabad)
+    return shabad
+
+
+def test_put(put):
     result = cache.get()[1111]
-    assert result == shabad
-    check = cache.check(1111)
-    assert check[0] is True
+    assert result == put
+
+
+def test_check():
+    checker = cache.check(1111)
+    assert checker[0] is True
+
+
+def test_clear():
     cache.clear()
     assert cache.get() == {'empty': True}
