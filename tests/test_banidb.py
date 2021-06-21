@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
+import json
+
 import pytest
 import requests
-import json
-import banidb
 from requests_mock.mocker import Mocker
+
+import banidb
 
 url = 'https://api.banidb.com/v2'
 
