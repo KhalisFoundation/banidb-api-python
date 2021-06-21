@@ -1,10 +1,16 @@
 # -*- coding: utf-8 -*-
+import pytest
 import requests
 import json
 import banidb
 from requests_mock.mocker import Mocker
 
 url = 'https://api.banidb.com/v2'
+
+
+@pytest.fixture
+def clear_cache():
+    banidb.clear()
 
 
 def test_backend_up(requests_mock: Mocker):
@@ -23,7 +29,7 @@ def test_backend_up(requests_mock: Mocker):
     assert result is True
 
 
-def test_shabad_ok_larivaar_false(requests_mock: Mocker):
+def get_json_blob():
     shabad_url = f"{url}/shabads/1111"
     result = {
         "shabadInfo": {
@@ -33,40 +39,46 @@ def test_shabad_ok_larivaar_false(requests_mock: Mocker):
                 "english": "source-english",
                 "pageNo": 111},
             "writer": {"english": "writer-english"}
-            },
+        },
 
         "verses": [
-                  {
-                      "verseId": 11111,
-                      "verse": {
-                          "unicode": "verse-unicode-ਮਹਲਾ ॥"
-                      },
-                      "larivaar": {
-                          "gurmukhi": "DnwsrImhlw5]",
-                          "unicode": "ਧਨਾਸਰੀਮਹਲਾ੫॥"
-                      },
-                      "translation": {
-                          "en": {
-                              "bdb": "xlate-en-bdb",
-                              "ms": "xlate-en-ms",
-                              "ssk": "xlate-en-ssk"
-                          },
+            {
+                "verseId": 11111,
+                "verse": {
+                    "unicode": "verse-unicode-ਮਹਲਾ ॥"
+                },
+                "larivaar": {
+                    "gurmukhi": "DnwsrImhlw5]",
+                    "unicode": "ਧਨਾਸਰੀਮਹਲਾ੫॥"
+                },
+                "translation": {
+                    "en": {
+                        "bdb": "xlate-en-bdb",
+                        "ms": "xlate-en-ms",
+                        "ssk": "xlate-en-ssk"
+                    },
 
-                      },
-                      "transliteration": {
-                          "english": "transliteration-english",
-                          "hindi": "transliteration-हिंदी",
-                          "en": "transliteration-en",
-                          "hi": "transliteration-हिं",
-                          "ipa": "transliteration-ɐ ɑ ɒ ɓ ɔ ɕ ɖ",
-                          "ur": "دھن-transliteration"
-                      },
+                },
+                "transliteration": {
+                    "english": "transliteration-english",
+                    "hindi": "transliteration-हिंदी",
+                    "en": "transliteration-en",
+                    "hi": "transliteration-हिं",
+                    "ipa": "transliteration-ɐ ɑ ɒ ɓ ɔ ɕ ɖ",
+                    "ur": "دھن-transliteration"
+                },
 
-                  }]
-        }
-
+            }]
+    }
     # convert dict to string to json
     json_blob = json.loads(json.dumps(result))
+    return json_blob, shabad_url
+
+
+def test_shabad_ok_larivaar_false(clear_cache, requests_mock: Mocker):
+
+    json_blob, shabad_url = get_json_blob()
+
     requests_mock.get(f"{shabad_url}", json=json_blob)
 
     # now run the function we are testing
@@ -93,50 +105,9 @@ def test_shabad_ok_larivaar_false(requests_mock: Mocker):
     assert 'larivaar' not in result['verses'][0]
 
 
-def test_shabad_ok_larivaar_true(requests_mock: Mocker):
-    shabad_url = f"{url}/shabads/1111"
-    result = {
-        "shabadInfo": {
-            "shabadId": 1111,
-            "source": {
-                "unicode": "source-unicode-ਸ੍ਰੀ",
-                "english": "source-english",
-                "pageNo": 111},
-            "writer": {"english": "writer-english"}
-            },
+def test_shabad_ok_larivaar_true(clear_cache, requests_mock: Mocker):
+    json_blob, shabad_url = get_json_blob()
 
-        "verses": [
-                  {
-                      "verseId": 11111,
-                      "verse": {
-                          "unicode": "verse-unicode-ਮਹਲਾ ॥"
-                      },
-                      "larivaar": {
-                          "gurmukhi": "DnwsrImhlw5]",
-                          "unicode": "ਧਨਾਸਰੀਮਹਲਾ੫॥"
-                      },
-                      "translation": {
-                          "en": {
-                              "bdb": "xlate-en-bdb",
-                              "ms": "xlate-en-ms",
-                              "ssk": "xlate-en-ssk"
-                          },
-
-                      },
-                      "transliteration": {
-                          "english": "transliteration-english",
-                          "hindi": "transliteration-हिंदी",
-                          "en": "transliteration-en",
-                          "hi": "transliteration-हिं",
-                          "ipa": "transliteration-ɐ ɑ ɒ ɓ ɔ ɕ ɖ",
-                          "ur": "دھن-transliteration"
-                      },
-
-                  }]
-        }
-
-    # convert dict to string to json
-    json_blob = json.loads(json.dumps(result))
     requests_mock.get(f"{shabad_url}", json=json_blob)
     result = banidb.shabad(1111, True)
 
@@ -159,50 +130,8 @@ def test_shabad_ok_larivaar_true(requests_mock: Mocker):
     }
 
 
-def test_shabad_not_ok_larivaar_false(requests_mock: Mocker):
-    shabad_url = f"{url}/shabads/1111"
-    result = {
-        "shabadInfo": {
-            "shabadId": 1111,
-            "source": {
-                "unicode": "source-unicode-ਸ੍ਰੀ",
-                "english": "source-english",
-                "pageNo": 111},
-            "writer": {"english": "writer-english"}
-            },
-
-        "verses": [
-                  {
-                      "verseId": 11111,
-                      "verse": {
-                          "unicode": "verse-unicode-ਮਹਲਾ ॥"
-                      },
-                      "larivaar": {
-                          "gurmukhi": "DnwsrImhlw5]",
-                          "unicode": "ਧਨਾਸਰੀਮਹਲਾ੫॥"
-                      },
-                      "translation": {
-                          "en": {
-                              "bdb": "xlate-en-bdb",
-                              "ms": "xlate-en-ms",
-                              "ssk": "xlate-en-ssk"
-                          },
-
-                      },
-                      "transliteration": {
-                          "english": "transliteration-english",
-                          "hindi": "transliteration-हिंदी",
-                          "en": "transliteration-en",
-                          "hi": "transliteration-हिं",
-                          "ipa": "transliteration-ɐ ɑ ɒ ɓ ɔ ɕ ɖ",
-                          "ur": "دھن-transliteration"
-                      },
-
-                  }]
-        }
-
-    # convert dict to string to json
-    json_blob = json.loads(json.dumps(result))
+def test_shabad_not_ok_larivaar_false(clear_cache, requests_mock: Mocker):
+    json_blob, shabad_url = get_json_blob()
     requests_mock.get(f"{shabad_url}", json=json_blob)
 
     result = banidb.shabad(1111)
