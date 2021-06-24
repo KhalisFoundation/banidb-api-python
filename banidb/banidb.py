@@ -1,5 +1,7 @@
-import requests
 import time
+
+import requests
+
 from .history import LRUCache
 
 cache = LRUCache('cache.dat', 25)
@@ -103,7 +105,6 @@ def shabad(shabad_id, larivaar=False):
         for verse in json_blob['verses']:
             line = {'verse_id': verse['verseId']}
             if larivaar is True:
-                shabad_id = f"{shabad_id}lari"
                 if verse['larivaar']['unicode'] is not None:
                     if verse['larivaar']['unicode'] != '':
                         line['verse'] = verse['larivaar']['unicode']
@@ -115,7 +116,7 @@ def shabad(shabad_id, larivaar=False):
             line['transliteration'] = verse['transliteration']
             lines.append(line)
         shabad['verses'] = lines
-        cache.put(shabad_id, shabad)
+        cache.put(id, shabad)
     return shabad
 
 
