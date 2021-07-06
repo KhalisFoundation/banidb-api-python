@@ -1,4 +1,4 @@
-# BaniDB.[py](https://pypi.org/user/KhalisFoundation/)
+# [BaniDB](https://pypi.org/user/KhalisFoundation/)
 ### _Python package for BaniDB API_
 
 [![](bdb.svg)](http://banidb.com)
