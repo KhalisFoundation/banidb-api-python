@@ -27,7 +27,7 @@ setup(
     ],
     install_requires=required,
     author_email='python@khalis.info',
-    download_url='https://github.com/KhalisFoundation/banidb-api-python/archive/refs/tags/v_0.1.tar.gz',
+    download_url='https://github.com/KhalisFoundation/banidb-api-python/archive/refs/tags/v_0.2.tar.gz',
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
