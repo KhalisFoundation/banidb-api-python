@@ -9,7 +9,7 @@ setup(
     name='banidb',
     version='0.1',
     license='MIT',
-    description='Python Package for BaniDB API',
+    description='Python Package for Sikh Gurbani - BaniDB API',
     long_description=README,
     long_description_content_type='text/markdown',
     author='Khalis Foundation',
@@ -29,9 +29,10 @@ setup(
     author_email='python@khalis.info',
     download_url='',
     classifiers=[
-        'Development Status :: 5 - Production/Stable',
+        'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
-        'Topic :: Software Development :: Build Tools',
+        'Intended Audience :: Religion',
+        'Topic :: Software Development :: Libraries :: Python Modules',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
         'Natural Language :: Punjabi',
@@ -45,10 +46,5 @@ setup(
         'Documentation': '',
         'Source': 'https://github.com/KhalisFoundation/banidb-api-python',
         'Issues': 'https://git.io/JG4II'
-    },
-    entry_points={
-        'pytest11': [
-            'requests_mock = requests_mock.pytest_plugin',
-        ]
     },
 )
