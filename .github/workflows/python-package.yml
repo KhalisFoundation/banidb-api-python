@@ -28,6 +28,7 @@ jobs:
         python -m pip install --upgrade pip
         python -m pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        python -m pip install setuptools wheel twine
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
@@ -37,4 +38,13 @@ jobs:
     - name: Test with pytest
       run: |
         python -m pytest -v -s tests/
+    - name: Build distribution test.pypi.org
+      run: |
+        python setup.py sdist bdist_wheel
+    - name: Publish distribution 📦 to Test PyPI
+      uses: pypa/gh-action-pypi-publish@master
+      with:
+        user: __token__
+        password: ${{ secrets.TEST_PYPI_API_TOKEN }}
+        repository_url: https://test.pypi.org/legacy/
 
