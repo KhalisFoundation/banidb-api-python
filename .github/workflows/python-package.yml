@@ -42,6 +42,7 @@ jobs:
       run: |
         python setup.py sdist bdist_wheel
     - name: push distribution to Test PyPI
+      if: ${{ matrix.python-version == 3.7 }}
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         user: __token__

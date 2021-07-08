@@ -7,7 +7,7 @@ with open('requirements.txt') as f:
 
 setup(
     name='banidb',
-    version='0.3',
+    version='0.3.1',
     license='MIT',
     description='Python Package for Sikh Gurbani - BaniDB API',
     long_description=README,
@@ -35,6 +35,7 @@ setup(
         'Topic :: Software Development :: Libraries :: Python Modules',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
+        'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
