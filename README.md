@@ -80,5 +80,7 @@ It can be done from the UI. Select the tag we just created and pushed
 #### From CLI (untested)
 `gh` has a new feature to trigger workflow from the CLI. 
 Note: at the time of writing this doc, this feature was not working on MacOS 
-``` gh workflow run python-publish.yml```
+``` 
+gh workflow run python-publish.yml
+```
 
