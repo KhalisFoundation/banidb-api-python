@@ -7,7 +7,7 @@ with open('requirements.txt') as f:
 
 setup(
     name='banidb',
-    version='0.2',
+    version='0.3.2',
     license='MIT',
     description='Python Package for Sikh Gurbani - BaniDB API',
     long_description=README,
@@ -27,7 +27,7 @@ setup(
     ],
     install_requires=required,
     author_email='python@khalis.info',
-    download_url='https://github.com/KhalisFoundation/banidb-api-python/archive/refs/tags/v_0.1.tar.gz',
+    download_url='https://github.com/KhalisFoundation/banidb-api-python/archive/refs/tags/v_0.2.tar.gz',
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
@@ -35,6 +35,7 @@ setup(
         'Topic :: Software Development :: Libraries :: Python Modules',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
+        'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
