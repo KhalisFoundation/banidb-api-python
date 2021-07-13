@@ -197,13 +197,17 @@ def banis():
         link = f"{url}/banis"
         response = requests.get(link)
         json_blob = response.json()
-        gurbani = {'bani_id': ['gurmukhiUni', 'transliterations']}
+        gurbani = {}
         for bani in json_blob:
-            gurbani[bani['ID']] = []
-            data = ['gurmukhi_uni', 'transliterations']
+            res = {}  # added dictionary to make it easily accessible
+            data = ['gurmukhiUni', 'transliterations']
             for k in data:
                 if bani[k] is not None:
-                    gurbani[bani['ID']].append(bani[k])
+                    j = k
+                    if k == 'gurmukhiUni':
+                        j = 'gurmukhi_uni'
+                    res[j] = bani[k]
+            gurbani[bani['ID']] = res
         cache.put('banis', gurbani)
     return gurbani
 
@@ -291,9 +295,9 @@ def amritkeertan_search(header_id):
     json_blob = response.json()
     header = json_blob['header'][0]
     results = {
-        'Header ID': header['HeaderID'],
-        'Gurmukhi': header['GurmukhiUni'],
-        'Translit': header['Transliterations']
+        'header_id': header['HeaderID'],
+        'gurmukhi': header['GurmukhiUni'],
+        'translit': header['Transliterations']
     }
     banis = []
     for index in json_blob['index']:
@@ -323,11 +327,11 @@ def kosh(letter):
     link = f"{url}/kosh/{letter}"
     response = requests.get(link)
     json_blob = response.json()
-    results = [['ਸ਼ਬਦ', 'Word']]
+    results = []
     res_count = len(json_blob)
     for i in range(res_count):
         word = json_blob[i]
-        results.append([word['word_uni'], word['word']])
+        results.append({'word_uni': word['wordUni'], 'word': word['word']})
     return results
 
 
@@ -354,8 +358,14 @@ def kosh_search(query):
     results = []
     res_count = len(json_blob)
     for i in range(res_count):
-        data = json_blob[i]
-        results.append([data['wordUni'], data['definitionUni']])
+        word = json_blob[i]
+        data = {
+            'word_uni': word['wordUni'],
+            'word': word['word'],
+            'def_uni': word['definitionUni'],
+            'def': word['definition']
+        }
+        results.append(data)
     return results
 
 
@@ -399,8 +409,11 @@ def rehat_chapter(rehat_id, chapter_id):
     response = requests.get(link)
     json_blob = response.json()
     tags = ['&', '<']
-    chapter = json_blob
-    content = chapter['chapters'][0]['chapterContent']
+    chapter = {}
+    chapter['rehat_id'] = json_blob['rehatID']
+    chapter['chapter_id'] = json_blob['chapters'][0]['chapterID']
+    chapter['alphabet'] = json_blob['chapters'][0]['alphabet']
+    content = json_blob['chapters'][0]['chapterContent']
     for i in content:
         if i in tags:
             if i == '<':
@@ -419,9 +432,11 @@ def rehat_search(query):
     link = f"{url}/rehats/search/{query}"
     response = requests.get(link)
     json_blob = response.json()
-    results = [{'rehat_id': 1}]
+    results = []
     for i in json_blob['rows']:
         chapter = {
+            'rehat_id': i['rehatID'],
+            'rehat_name': i['rehatName'],
             'chapter_id': i['chapterID'],
             'chapter_name': i['chapterName']
             }
@@ -476,15 +491,12 @@ def raag(raag_id):
     result = []
     for row in json_blob['rows'][1:]:
         if row['RaagID'] == raag_id:
-            writer_url = f"{url}/writers"
-            wres = requests.get(writer_url)
-            wjs = wres.json()
             info = row['SourceInfo'][0]
             raag_data = {}
             data = {
                 'raag_id': row['RaagID'],
                 'raag_uni': row['RaagUnicode'],
-                'raag': row['RaagEnglish']+'\n',
+                'raag': row['RaagEnglish'],
                 'time_of_raag': (row['StartTime'], row['EndTime']),
                 'common_themes': row['CommonThemes'],
                 'feeling': row['Feeling'],
@@ -504,10 +516,14 @@ def raag(raag_id):
                 'jaati': row['Jaati']
                 }
             data['writers'] = []
-            for writer in row['Writers']:  # provides list of writer names
-                for writer_row in wjs['rows']:
-                    if writer_row['WriterID'] == writer:
-                        data['writers'].append(writer_row['WriterEnglish'])
+            if row['Writers'] != []:
+                writer_url = f"{url}/writers"
+                wres = requests.get(writer_url)
+                wjs = wres.json()
+                for writer in row['Writers']:  # provides list of writer names
+                    for writer_row in wjs['rows']:
+                        if writer_row['WriterID'] == writer:
+                            data['writers'].append(writer_row['WriterEnglish'])
             for k in data.keys():  # removes empty or null data values
                 if data[k] is not None and data[k] != '':
                     raag_data[k] = data[k]
