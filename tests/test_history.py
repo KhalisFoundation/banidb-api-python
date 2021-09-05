@@ -7,9 +7,13 @@ url = 'https://api.banidb.com/v2'
 target = 'mock.dat'
 cache = LRUCache(target, 25)
 
+@pytest.fixture
+def clear_cache():
+    cache.clear()
+
 
 @pytest.fixture()
-def put():
+def intialize_cache_with_shabad():
     shabad = {
         "shabadInfo": {
             "shabadId": 1111,
@@ -53,16 +57,28 @@ def put():
     return shabad
 
 
-def test_put(put):
+def test_intialize_cache_with_shabad_ok(intialize_cache_with_shabad):
     result = cache.get()[1111]
-    assert result == put
+    assert result == intialize_cache_with_shabad
 
 
-def test_check():
+def test_intialize_cache_with_shabad_not_ok(intialize_cache_with_shabad):
+    result = cache.get()
+    assert result != intialize_cache_with_shabad
+
+
+def test_check_ok():
     checker = cache.check(1111)
     assert checker[0] is True
 
+def test_check_not_ok():
+    assert cache.check(1111) is not False
 
-def test_clear():
-    cache.clear()
+
+def test_clear_not_ok():
+    assert cache.get() != {'empty': True}
+
+
+def test_clear_ok(clear_cache):
+    clear_cache
     assert cache.get() == {'empty': True}
