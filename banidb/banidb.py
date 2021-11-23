@@ -97,7 +97,7 @@ def shabad(shabad_id, larivaar=False):
         data = requests.get(link)
         json_blob = data.json()
         info = json_blob['shabadInfo']
-        shabad = {'source_uni': info['source']['unicode']}
+        shabad = {'shabad_id': shabad_id,'source_uni': info['source']['unicode']}
         shabad['source_eng'] = info['source']['english']
         shabad['writer'] = info['writer']['english']
         shabad['ang'] = info['source']['pageNo']
@@ -203,10 +203,7 @@ def banis():
             data = ['gurmukhiUni', 'transliterations']
             for k in data:
                 if bani[k] is not None:
-                    j = k
-                    if k == 'gurmukhiUni':
-                        j = 'gurmukhi_uni'
-                    res[j] = bani[k]
+                    res[k] = bani[k]
             gurbani[bani['ID']] = res
         cache.put('banis', gurbani)
     return gurbani

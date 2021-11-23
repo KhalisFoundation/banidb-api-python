@@ -515,6 +515,7 @@ def test_hukamnama_ok(clear_cache, requests_mock: Mocker):
     result = banidb.hukamnama(2010, 10, 10)
     print(result)
 
+    assert result['hukam'][0]['shabad_id'] == 1111
     assert result['hukam'][0]['source_uni'] == 'source-unicode-ਸ੍ਰੀ'
     assert result['hukam'][0]['source_eng'] == 'source-english'
     assert result['hukam'][0]['writer'] == 'writer-english'
@@ -546,7 +547,8 @@ def test_hukamnama_not_ok(clear_cache, requests_mock: Mocker):
 
     result = banidb.hukamnama(2010, 10, 10)
     print(result)
-
+    
+    assert result['hukam'][0]['shabad_id'] == 1111
     assert result['hukam'][0]['source_uni'] == 'source-unicode-ਸ੍ਰੀ'
     assert result['hukam'][0]['source_eng'] != 'source'
     assert result['hukam'][0]['writer'] == 'writer-english'
@@ -574,7 +576,8 @@ def test_random_ok(clear_cache, requests_mock: Mocker):
     requests_mock.get(f"{shabad_url}", json=shabad_blob)
 
     result = banidb.random()
-
+    
+    assert result['shabad_id'] == 1111
     assert result['source_uni'] == 'source-unicode-ਸ੍ਰੀ'
     assert result['source_eng'] == 'source-english'
     assert result['writer'] == 'writer-english'
@@ -605,7 +608,8 @@ def test_random_not_ok(clear_cache, requests_mock: Mocker):
     requests_mock.get(f"{shabad_url}", json=shabad_blob)
 
     result = banidb.random()
-
+    
+    assert result['shabad_id'] == 1111
     assert result['source_uni'] == 'source-unicode-ਸ੍ਰੀ'
     assert result['source_eng'] != 'source'
     assert result['writer'] == 'writer-english'
@@ -643,7 +647,7 @@ def test_banis_ok(clear_cache, requests_mock: Mocker):
     result = banidb.banis()
     print(result)
 
-    assert result[1]['gurmukhi_uni'] == "bani-uni"
+    assert result[1]['gurmukhiUni'] == "bani-uni"
     assert result[1]['transliterations'] == {
             "english": "transliteration-english",
             "hindi": "transliteration-हिंदी",
@@ -662,7 +666,7 @@ def test_banis_not_ok(clear_cache, requests_mock: Mocker):
     result = banidb.banis()
     print(result)
 
-    assert result[1]['gurmukhi_uni'] != "bani"
+    assert result[1]['gurmukhiUni'] != "bani"
     assert result[1]['transliterations'] == {
             "english": "transliteration-english",
             "hindi": "transliteration-हिंदी",
