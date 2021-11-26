@@ -1,7 +1,8 @@
 `BaniDB <https://pypi.org/user/KhalisFoundation/>`__
 ====================================================
 
-|image0|
+.. image:: bdb.png
+   :target: https://banidb.com
 
 Vision Statement
 ================
@@ -113,6 +114,3 @@ MacOS
 ::
 
     gh workflow run python-publish.yml
-
-.. |image0| image:: bdb.svg
-   :target: http://banidb.com
