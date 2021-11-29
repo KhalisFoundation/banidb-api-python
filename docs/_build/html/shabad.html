@@ -1,0 +1,235 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Shabad &#8212; BaniDB.py [0.4.1] documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Hukamnama" href="hukamnama.html" />
+    <link rel="prev" title="Search" href="searchdb.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="shabad">
+<h1>Shabad<a class="headerlink" href="#shabad" title="Permalink to this headline">¶</a></h1>
+<p>Get Shabad using its corresponding Shabad ID</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">banidb</span><span class="o">.</span><span class="n">shabad</span><span class="p">(</span><span class="n">shabad_id</span><span class="p">,</span> <span class="n">larivaar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><strong>shabad_id</strong>: id of the specific shabad, recieved from the
+<a class="reference external" href="searchdb.html">search</a> results.</p></li>
+<li><p><strong>larivaar</strong>: you want it to be in larivaar or not.</p></li>
+</ul>
+<section id="example">
+<h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Searching Bandhana Har Bandhana Gun Gaavo Gopal Rai....</span>
+<span class="n">shabad_data</span> <span class="o">=</span> <span class="n">banidb</span><span class="o">.</span><span class="n">shabad</span><span class="p">(</span><span class="mi">5213</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">shabad_data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Output</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s1">&#39;shabad_id&#39;</span><span class="p">:</span> <span class="mi">5213</span><span class="p">,</span>
+    <span class="s1">&#39;source_uni&#39;</span><span class="p">:</span> <span class="s1">&#39;ਸ੍ਰੀ ਗੁਰੂ ਗ੍ਰੰਥ ਸਾਹਿਬ ਜੀ&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;source_eng&#39;</span><span class="p">:</span> <span class="s1">&#39;Sri Guru Granth Sahib Ji&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;writer&#39;</span><span class="p">:</span> <span class="s1">&#39;Bhagat Sheikh Fareed Ji&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ang&#39;</span><span class="p">:</span> <span class="mi">1378</span><span class="p">,</span>
+    <span class="s1">&#39;verses&#39;</span><span class="p">:</span>
+        <span class="p">[{</span>
+        <span class="s1">&#39;verse_id&#39;</span><span class="p">:</span> <span class="mi">58548</span><span class="p">,</span>
+        <span class="s1">&#39;verse&#39;</span><span class="p">:</span> <span class="s1">&#39;ਕਿਝੁ ਨ ਬੁਝੈ ਕਿਝੁ ਨ ਸੁਝੈ ਦੁਨੀਆ ਗੁਝੀ ਭਾਹਿ ॥&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;steek&#39;</span><span class="p">:{</span>
+            <span class="s1">&#39;en&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;bdb&#39;</span><span class="p">:</span> <span class="s1">&#39;I know nothing; I understand nothing. The world is a smouldering fire.&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;ms&#39;</span><span class="p">:</span> <span class="s1">&#39;I see nothing and know nothing, as the world is a smoldering fire.&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;ssk&#39;</span><span class="p">:</span> <span class="s1">&#39;I know nothing; I understand nothing. The world is a smouldering fire.&#39;</span>
+            <span class="p">},</span>
+            <span class="s1">&#39;pu&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;ss&#39;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s1">&#39;gurmukhi&#39;</span><span class="p">:</span> <span class="s1">&#39;dunIAw lukvIN A`g hY ,kuJ sUJ-bUJ nhIN pYNdI [&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;unicode&#39;</span><span class="p">:</span> <span class="s1">&#39;ਦੁਨੀਆ ਲੁਕਵੀਂ ਅੱਗ ਹੈ ,ਕੁਝ ਸੂਝ-ਬੂਝ ਨਹੀਂ ਪੈਂਦੀ ।&#39;</span>
+                <span class="p">},</span>
+                <span class="s1">&#39;ft&#39;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s1">&#39;gurmukhi&#39;</span><span class="p">:</span> <span class="s1">&#39;ies dunIAW ko kuC Drm kI bUJ nhIN hY AOr Apny srUp kI kuC sUJ nhIN[ iesI kr ky sMpUrn dunIAW ko AwSw iqRSnw rUp guJI AgnI lwg rhI hY]&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;unicode&#39;</span><span class="p">:</span> <span class="s1">&#39;ਇਸ ਦੁਨੀਆਂ ਕੋ ਕੁਛ ਧਰਮ ਕੀ ਬੂਝ ਨਹੀਂ ਹੈ ਔਰ ਅਪਨੇ ਸਰੂਪ ਕੀ ਕੁਛ ਸੂਝ ਨਹੀਂ। ਇਸੀ ਕਰ ਕੇ ਸੰਪੂਰਨ ਦੁਨੀਆਂ ਕੋ ਆਸ਼ਾ ਤ੍ਰਿਸ਼ਨਾ ਰੂਪ ਗੁਝੀ ਅਗਨੀ ਲਾਗ ਰਹੀ ਹੈ॥&#39;</span>
+                <span class="p">},</span>
+                <span class="s1">&#39;bdb&#39;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s1">&#39;gurmukhi&#39;</span><span class="p">:</span> <span class="s1">&#39;dunIAw lukvIN A`g hY ,kuJ sUJ-bUJ nhIN pYNdI [&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;unicode&#39;</span><span class="p">:</span> <span class="s1">&#39;ਦੁਨੀਆ ਲੁਕਵੀਂ ਅੱਗ ਹੈ ,ਕੁਝ ਸੂਝ-ਬੂਝ ਨਹੀਂ ਪੈਂਦੀ ।&#39;</span>
+                <span class="p">},</span>
+                <span class="s1">&#39;ms&#39;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s1">&#39;gurmukhi&#39;</span><span class="p">:</span> <span class="s1">&#39;mYN kuC nhIN sI jwxdw, mYƒ kuC BI nhIN idsdw, ikauN ik sMswr sulGdI hoeI A`g hY[&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;unicode&#39;</span><span class="p">:</span> <span class="s1">&#39;ਮੈਂ ਕੁਛ ਨਹੀਂ ਸੀ ਜਾਣਦਾ, ਮੈਨੂੰ ਕੁਛ ਭੀ ਨਹੀਂ ਦਿਸਦਾ, ਕਿਉਂ ਕਿ ਸੰਸਾਰ ਸੁਲਘਦੀ ਹੋਈ ਅੱਗ ਹੈ।&#39;</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="s1">&#39;es&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;sn&#39;</span><span class="p">:</span> <span class="s1">&#39;No sé nada, no entiendo nada, el mundo es una bola de fuego, &#39;</span>
+            <span class="p">},</span>
+            <span class="s1">&#39;hi&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;ss&#39;</span><span class="p">:</span> <span class="s1">&#39;दुनिया (देखने में तो गुलज़ार है। पर इसका मोह असल में) छुपी हुई गुप्त आग है (जो अंदर ही अंदर मन में धुखती रहती है; इसमें पड़े हुए जीवों को जिंदगी के सही रास्ते की) कुछ सूझ-बूझ नहीं पड़ती।&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;sts&#39;</span><span class="p">:</span> <span class="s1">&#39;यह दुनिया छिपी हुई आग है, जिसमें कुछ समझ नहीं आता।&#39;</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;transliteration&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;english&#39;</span><span class="p">:</span> <span class="s1">&#39;kijh na bujhai kijh na sujhai dhuneeaa gujhee bhaeh ||&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;hindi&#39;</span><span class="p">:</span> <span class="s1">&#39;किझु न बुझै किझु न सुझै दुनीआ गुझी भाहि ॥&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;en&#39;</span><span class="p">:</span> <span class="s1">&#39;kijh na bujhai kijh na sujhai dhuneeaa gujhee bhaeh ||&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;hi&#39;</span><span class="p">:</span> <span class="s1">&#39;किझु न बुझै किझु न सुझै दुनीआ गुझी भाहि ॥&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;ipa&#39;</span><span class="p">:</span> <span class="s1">&#39;kɪɖ͡ʐ nə bʊɖ͡ʐæ kɪɖ͡ʐ nə sʊɖ͡ʐæ d̪ʊniəɑ Gʊɖ͡ʐi ɓɑh.&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;ur&#39;</span><span class="p">:</span> <span class="s1">&#39;کِجھ ن بُجھَے کجھ ن سُجھَے دُنیِآ گُجھیِ بھاه ۔۔&#39;</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;verse_id&#39;</span><span class="p">:</span> <span class="mi">58549</span><span class="p">,</span>
+        <span class="s1">&#39;verse&#39;</span><span class="p">:</span> <span class="s1">&#39;ਸਾਂਈਂ ਮੇਰੈ ਚੰਗਾ ਕੀਤਾ ਨਾਹੀ ਤ ਹੰ ਭੀ ਦਝਾਂ ਆਹਿ ॥੩॥&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;steek&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;en&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;bdb&#39;</span><span class="p">:</span> <span class="s1">&#39;My Lord did well to warn me about it; otherwise, I would have been burnt as well. ||3||&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;ms&#39;</span><span class="p">:</span> <span class="s1">&#39;My Lord did well to warn me, otherwise, I too would have been burnt.&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;ssk&#39;</span><span class="p">:</span> <span class="s1">&#39;My Lord did well to warn me about it; otherwise, I would have been burnt as well. ||3||&#39;</span>
+            <span class="p">},</span>
+            <span class="s1">&#39;pu&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;ss&#39;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s1">&#39;gurmukhi&#39;</span><span class="p">:</span> <span class="s1">&#39; myry sWeI ny (myry auqy) myhr kIqI hY ,nhIN qW (bwkI lokW vWg) mYN BI (ies ivc) sV jWdw [3[&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;unicode&#39;</span><span class="p">:</span> <span class="s1">&#39; ਮੇਰੇ ਸਾਂਈ ਨੇ (ਮੇਰੇ ਉਤੇ) ਮੇਹਰ ਕੀਤੀ ਹੈ ,ਨਹੀਂ ਤਾਂ (ਬਾਕੀ ਲੋਕਾਂ ਵਾਂਗ) ਮੈਂ ਭੀ (ਇਸ ਵਿਚ) ਸੜ ਜਾਂਦਾ ।੩।&#39;</span>
+                <span class="p">},</span>
+                <span class="s1">&#39;ft&#39;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s1">&#39;gurmukhi&#39;</span><span class="p">:</span> <span class="s1">&#39;qW qy myry sweIN ny myry swQ cMgw kIqw hY, jo ies gRhsq qy muJ ko bcwie lIAw hY[ nhIN qo mYN BI iesI pRkwr ies AgnI myN (dJW) dgD hoxw sI]3]ÇPrId jI AYsy kih kr iqs Kyq vwly ko khw: qUM jwh qyry KrbUjy ausI qrh ho jwvyNgy[ qb iqs ny pUCw: ieh ikAw cirqR hUAw hY[ qo PrId jI ny khw: ausI Kyq myN eyk isr rih jwvygw, quJ ko au`qR dyvygw[ qb vhu AYsy sun kr jb Awkr dyKy qo sBI KrbUjy ho gey hYN[ voh jo eyk isr pVw Qw iqs ko pUCw, qb voh hsw BI AO roXw BI[ qo iqs ny iqs sy hsny AO rony kw kwrn pUCw, qb Eh isr kihqw BXw: hy ABwgy purS! hm cOrwsI myN Brmqy hUey Ab ies jnm myN Awey Qy[ jykr hmwry bIc sy eyk BI aun sMqoN ky ArQ lg jwqw qb hm sBI mukiq ho jwqy[ ies kr ky qo mYN hsw Qw[ prMqU qYny sMqoN kw svwl nhIN mwnw[ hm iqn ky ArQ n Awvny sy Pyr cOrwsI myN hI rih gey, XW qy mYN roXw hUM[ iqs isr sy AYsy bcn sun kr auh gRhsqI BI veIrwg krdy bMdgI krny lwgw]&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;unicode&#39;</span><span class="p">:</span> <span class="s1">&#39;ਤਾਂ ਤੇ ਮੇਰੇ ਸਾਈਂ ਨੇ ਮੇਰੇ ਸਾਥ ਚੰਗਾ ਕੀਤਾ ਹੈ, ਜੋ ਇਸ ਗ੍ਰਹਸਤ ਤੇ ਮੁਝ ਕੋ ਬਚਾਇ ਲੀਆ ਹੈ। ਨਹੀਂ ਤੋ ਮੈਂ ਭੀ ਇਸੀ ਪ੍ਰਕਾਰ ਇਸ ਅਗਨੀ ਮੇਂ (ਦਝਾਂ) ਦਗਧ ਹੋਣਾ ਸੀ॥੩॥☬ਫਰੀਦ ਜੀ ਐਸੇ ਕਹਿ ਕਰ ਤਿਸ ਖੇਤ ਵਾਲੇ ਕੋ ਕਹਾ: ਤੂੰ ਜਾਹ ਤੇਰੇ ਖਰਬੂਜੇ ਉਸੀ ਤਰਹ ਹੋ ਜਾਵੇਂਗੇ। ਤਬ ਤਿਸ ਨੇ ਪੂਛਾ: ਇਹ ਕਿਆ ਚਰਿਤ੍ਰ ਹੂਆ ਹੈ। ਤੋ ਫਰੀਦ ਜੀ ਨੇ ਕਹਾ: ਉਸੀ ਖੇਤ ਮੇਂ ਏਕ ਸਿਰ ਰਹਿ ਜਾਵੇਗਾ, ਤੁਝ ਕੋ ਉੱਤ੍ਰ ਦੇਵੇਗਾ। ਤਬ ਵਹੁ ਐਸੇ ਸੁਨ ਕਰ ਜਬ ਆਕਰ ਦੇਖੇ ਤੋ ਸਭੀ ਖਰਬੂਜੇ ਹੋ ਗਏ ਹੈਂ। ਵੋਹ ਜੋ ਏਕ ਸਿਰ ਪੜਾ ਥਾ ਤਿਸ ਕੋ ਪੂਛਾ, ਤਬ ਵੋਹ ਹਸਾ ਭੀ ਔ ਰੋਯਾ ਭੀ। ਤੋ ਤਿਸ ਨੇ ਤਿਸ ਸੇ ਹਸਨੇ ਔ ਰੋਨੇ ਕਾ ਕਾਰਨ ਪੂਛਾ, ਤਬ ਓਹ ਸਿਰ ਕਹਿਤਾ ਭਯਾ: ਹੇ ਅਭਾਗੇ ਪੁਰਸ਼! ਹਮ ਚੌਰਾਸੀ ਮੇਂ ਭਰਮਤੇ ਹੂਏ ਅਬ ਇਸ ਜਨਮ ਮੇਂ ਆਏ ਥੇ। ਜੇਕਰ ਹਮਾਰੇ ਬੀਚ ਸੇ ਏਕ ਭੀ ਉਨ ਸੰਤੋਂ ਕੇ ਅਰਥ ਲਗ ਜਾਤਾ ਤਬ ਹਮ ਸਭੀ ਮੁਕਤਿ ਹੋ ਜਾਤੇ। ਇਸ ਕਰ ਕੇ ਤੋ ਮੈਂ ਹਸਾ ਥਾ। ਪਰੰਤੂ ਤੈਨੇ ਸੰਤੋਂ ਕਾ ਸਵਾਲ ਨਹੀਂ ਮਾਨਾ। ਹਮ ਤਿਨ ਕੇ ਅਰਥ ਨ ਆਵਨੇ ਸੇ ਫੇਰ ਚੌਰਾਸੀ ਮੇਂ ਹੀ ਰਹਿ ਗਏ, ਯਾਂ ਤੇ ਮੈਂ ਰੋਯਾ ਹੂੰ। ਤਿਸ ਸਿਰ ਸੇ ਐਸੇ ਬਚਨ ਸੁਨ ਕਰ ਉਹ ਗ੍ਰਹਸਤੀ ਭੀ ਵਈਰਾਗ ਕਰਦੇ ਬੰਦਗੀ ਕਰਨੇ ਲਾਗਾ॥&#39;</span>
+                <span class="p">},</span>
+                <span class="s1">&#39;bdb&#39;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s1">&#39;gurmukhi&#39;</span><span class="p">:</span> <span class="s1">&#39; myry sWeI ny (myry auqy) myhr kIqI hY ,nhIN qW (bwkI lokW vWg) mYN BI (ies ivc) sV jWdw [3[&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;unicode&#39;</span><span class="p">:</span> <span class="s1">&#39; ਮੇਰੇ ਸਾਂਈ ਨੇ (ਮੇਰੇ ਉਤੇ) ਮੇਹਰ ਕੀਤੀ ਹੈ ,ਨਹੀਂ ਤਾਂ (ਬਾਕੀ ਲੋਕਾਂ ਵਾਂਗ) ਮੈਂ ਭੀ (ਇਸ ਵਿਚ) ਸੜ ਜਾਂਦਾ ।੩।&#39;</span>
+                <span class="p">},</span>
+                <span class="s1">&#39;ms&#39;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s1">&#39;gurmukhi&#39;</span><span class="p">:</span> <span class="s1">&#39;myry mwlk ny Blw kIqw ik mYƒ Kbrdwr kr id`qw, nhIN qW mYN BI sV bl jWdw[&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;unicode&#39;</span><span class="p">:</span> <span class="s1">&#39;ਮੇਰੇ ਮਾਲਕ ਨੇ ਭਲਾ ਕੀਤਾ ਕਿ ਮੈਨੂੰ ਖਬਰਦਾਰ ਕਰ ਦਿੱਤਾ, ਨਹੀਂ ਤਾਂ ਮੈਂ ਭੀ ਸੜ ਬਲ ਜਾਂਦਾ।&#39;</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="s1">&#39;es&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;sn&#39;</span><span class="p">:</span> <span class="s1">&#39;mi Señor hizo bien en advertirme, de otra forma me hubiera quemado ahí también. (3)&#39;</span>
+            <span class="p">},</span>
+            <span class="s1">&#39;hi&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;ss&#39;</span><span class="p">:</span> <span class="s2">&quot;मेरे सांई ने (मेरे ऊपर) मेहर की है (और मुझे इससे बचा लिया है) नहीं तो (बाकी लोगों की तरह) मैं भी (इसमें) जल जाता ( भाव। माया के मोह से प्रभू स्वयं ही मेहर करके बचाता है। हमारे अपने वश की बात नहीं कि यह &#39;पोटली&#39; सिर से उतार के फेंक सकें)। 3।&quot;</span><span class="p">,</span>
+                <span class="s1">&#39;sts&#39;</span><span class="p">:</span> <span class="s1">&#39;मेरे मालिक ने बहुत अच्छा किया, जो रहम करके मुझे इससे बचा लिया, अन्यथा मैंने भी इसमें जल जाना था ॥३॥&#39;</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;transliteration&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;english&#39;</span><span class="p">:</span> <span class="s1">&#39;saa(n)iee(n) merai cha(n)gaa keetaa naahee ta ha(n) bhee dhajhaa(n) aaeh ||3||&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;hindi&#39;</span><span class="p">:</span> <span class="s1">&#39;साँईं मेरै चंगा कीता नाही त हं भी दझाँ आहि ॥३॥&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;en&#39;</span><span class="p">:</span> <span class="s1">&#39;saa(n)iee(n) merai cha(n)gaa keetaa naahee ta ha(n) bhee dhajhaa(n) aaeh ||3||&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;hi&#39;</span><span class="p">:</span> <span class="s1">&#39;साँईं मेरै चंगा कीता नाही त हं भी दझाँ आहि ॥३॥&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;ipa&#39;</span><span class="p">:</span> <span class="s1">&#39;sɑⁿeiⁿ meræ t͡ʃəŋGɑ kit̪ɑ nɑhi t̪ həŋ ɓi d̪əɖ͡ʐɑⁿ əɑh.3.&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;ur&#39;</span><span class="p">:</span> <span class="s1">&#39;ساںایں مےرَے چںگا کیِتا ناهیِ ت هں بھیِ دجھاں آه ۔۔۳۔۔&#39;</span>
+        <span class="p">}</span>
+    <span class="p">}]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">BaniDB.py</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="searchdb.html">Search</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Shabad</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#parameters">Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hukamnama.html">Hukamnama</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sources.html">Sources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="writers.html">Writers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="searchtype.html">Search Types</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="searchdb.html" title="previous chapter">Search</a></li>
+      <li>Next: <a href="hukamnama.html" title="next chapter">Hukamnama</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Khalis Foundation.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.3.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/shabad.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

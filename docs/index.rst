@@ -1,6 +1,17 @@
 `BaniDB <https://pypi.org/user/KhalisFoundation/>`__
 ====================================================
 
+.. toctree::
+   :maxdepth: 2
+   :hidden:
+
+   searchdb
+   shabad
+   hukamnama
+   sources
+   writers
+   searchtype
+
 .. image:: bdb.png
    :target: https://banidb.com
 
@@ -108,8 +119,7 @@ From CLI (untested)
 ^^^^^^^^^^^^^^^^^^^
 
 | ``gh`` has a new feature to trigger workflow from the CLI.
-| Note: at the time of writing this doc, this feature was not working on
-MacOS
+| Note: at the time of writing this doc, this feature was not working on MacOS
 
 ::
 
