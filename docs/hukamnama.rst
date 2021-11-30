@@ -10,6 +10,15 @@ Hukamnama
     data = banidb.hukamnama(year, month, day)
     print(data)
 
+Returns Hukamnama Sahib.
+
+**Parameters:** 
+    - **year** *(int)* – *{Optional}* year of the hukamnama.
+    - **month** *(int)* – *{Optional}* month of the hukamnama.
+    - **day** *(int)* – *{Optional}* day of the hukamnama.
+
+**Return type:**    dict
+
 | **Output**
 | The hukamnama sahib data can be accessed as follows:
 

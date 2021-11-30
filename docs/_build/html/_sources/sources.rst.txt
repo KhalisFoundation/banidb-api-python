@@ -9,6 +9,12 @@ Provides available sources in the BaniDB API from which Bani can be
     # Get all sources with ids
     print(banidb.sources())
 
+Returns sources with their corresponding ids and names.
+
+**Returns:**    Sources as dictionary(key-value pair).
+
+**Return type:**    dict
+
 | **All available Sources**
 
 ========= ========================================== =======================

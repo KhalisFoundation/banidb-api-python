@@ -6,6 +6,12 @@ Search Types
     # Get searchtype indices to be used for custom search
     print(banidb.search_type())
 
+Returns a dictionary of available searchtypes for `search <searchdb.html>`__.
+
+**Returns:**    Search-types as dictionary(key-value pair).
+
+**Return type:**    dict
+
 | **All available Search Types**
 
 ===== ===========

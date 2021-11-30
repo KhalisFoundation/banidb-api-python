@@ -7,12 +7,15 @@ Get Shabad using its corresponding Shabad ID
 
     banidb.shabad(shabad_id, larivaar=False)
 
-Parameters
-~~~~~~~~~~
+Return a dictionary of search results.
 
--  **shabad\_id**: id of the specific shabad, recieved from the
-   `search <searchdb.html>`__ results.
--  **larivaar**: you want it to be in larivaar or not.
+**Parameters:** 
+    - **shabad_id** *(int)* – id of the specific shabad, recieved from the `search <searchdb.html>`__ results.
+    - **larivaar** *(bool)* - you want it to be in larivaar or not.
+
+**Returns:**    Specific Shabad as a dictionary(key-value pair).
+
+**Return type:**    dict
 
 Example
 ^^^^^^^

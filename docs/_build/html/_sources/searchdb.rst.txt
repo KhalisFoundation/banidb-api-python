@@ -8,21 +8,30 @@ Search for any shabad in the BaniDB API
     banidb.search(query, searchtype=1, source='all', larivaar=False,
                ang=None, raag=None, writer='all', page=1, results=None)
 
-Parameters
-~~~~~~~~~~
+Return a dictionary of search results.
 
--  **query**: what you want to search.
--  `searchtype <searchtype.html>`__: how you want to search (first
-   letter, word, ang, etc).
--  `source <sources.html>`__: from where you want to search (by default,
-   Guru Granth Sahib Ji).
--  **larivaar**: you want it to be in larivaar or not.
--  **ang**: specify the ang to search from, for more precise results.
--  **raag**: specify the raag for your search.
--  `writer <writers.html>`__: specify the banikaar, writer of the
-   specific bani.
--  **page**: specify page of search results.
--  **results**: specify number of results you want.
+**Parameters:** 
+    - **query** *(str or int)* – what you want to search.
+
+    - `searchtype <searchtype.html>`__ *(int)* – how you want to search (first letter, word, ang, etc).
+
+    - `source <sources.html>`__ *(str)* – from where you want to search (by default, Guru Granth Sahib Ji).
+
+    - **larivaar** *(bool)* – you want it to be in larivaar or not.
+
+    - **ang** *(int)* – specify the ang to search from, for more precise results.
+
+    - **raag** *(int)* – specify the raag for your search.
+
+    - `writer <writers.html>`__ *(int)* – specify the banikaar, writer of the specific bani.
+
+    - **page** *(int)* – specify page of search results.
+
+    - **results** *(int)* – specify number of results you want.
+
+**Returns:**    Search Results as dictionary(key-value pair).
+
+**Return type:**    dict
 
 Example
 ^^^^^^^

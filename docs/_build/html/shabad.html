@@ -39,15 +39,18 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">banidb</span><span class="o">.</span><span class="n">shabad</span><span class="p">(</span><span class="n">shabad_id</span><span class="p">,</span> <span class="n">larivaar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
-<section id="parameters">
-<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p><strong>shabad_id</strong>: id of the specific shabad, recieved from the
-<a class="reference external" href="searchdb.html">search</a> results.</p></li>
-<li><p><strong>larivaar</strong>: you want it to be in larivaar or not.</p></li>
+<p>Return a dictionary of search results.</p>
+<dl class="simple">
+<dt><strong>Parameters:</strong></dt><dd><ul class="simple">
+<li><p><strong>shabad_id</strong> <em>(int)</em> – id of the specific shabad, recieved from the <a class="reference external" href="searchdb.html">search</a> results.</p></li>
+<li><p><strong>larivaar</strong> <em>(bool)</em> - you want it to be in larivaar or not.</p></li>
 </ul>
+</dd>
+</dl>
+<p><strong>Returns:</strong>    Specific Shabad as a dictionary(key-value pair).</p>
+<p><strong>Return type:</strong>    dict</p>
 <section id="example">
-<h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Searching Bandhana Har Bandhana Gun Gaavo Gopal Rai....</span>
 <span class="n">shabad_data</span> <span class="o">=</span> <span class="n">banidb</span><span class="o">.</span><span class="n">shabad</span><span class="p">(</span><span class="mi">5213</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">shabad_data</span><span class="p">)</span>
@@ -154,7 +157,6 @@
 </div>
 </section>
 </section>
-</section>
 
 
           </div>
@@ -176,7 +178,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="searchdb.html">Search</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Shabad</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example">Example</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="hukamnama.html">Hukamnama</a></li>

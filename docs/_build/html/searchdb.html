@@ -40,24 +40,25 @@
            <span class="n">ang</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">raag</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">writer</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">page</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">results</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
-<section id="parameters">
-<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p><strong>query</strong>: what you want to search.</p></li>
-<li><p><a class="reference external" href="searchtype.html">searchtype</a>: how you want to search (first
-letter, word, ang, etc).</p></li>
-<li><p><a class="reference external" href="sources.html">source</a>: from where you want to search (by default,
-Guru Granth Sahib Ji).</p></li>
-<li><p><strong>larivaar</strong>: you want it to be in larivaar or not.</p></li>
-<li><p><strong>ang</strong>: specify the ang to search from, for more precise results.</p></li>
-<li><p><strong>raag</strong>: specify the raag for your search.</p></li>
-<li><p><a class="reference external" href="writers.html">writer</a>: specify the banikaar, writer of the
-specific bani.</p></li>
-<li><p><strong>page</strong>: specify page of search results.</p></li>
-<li><p><strong>results</strong>: specify number of results you want.</p></li>
+<p>Return a dictionary of search results.</p>
+<dl class="simple">
+<dt><strong>Parameters:</strong></dt><dd><ul class="simple">
+<li><p><strong>query</strong> <em>(str or int)</em> – what you want to search.</p></li>
+<li><p><a class="reference external" href="searchtype.html">searchtype</a> <em>(int)</em> – how you want to search (first letter, word, ang, etc).</p></li>
+<li><p><a class="reference external" href="sources.html">source</a> <em>(str)</em> – from where you want to search (by default, Guru Granth Sahib Ji).</p></li>
+<li><p><strong>larivaar</strong> <em>(bool)</em> – you want it to be in larivaar or not.</p></li>
+<li><p><strong>ang</strong> <em>(int)</em> – specify the ang to search from, for more precise results.</p></li>
+<li><p><strong>raag</strong> <em>(int)</em> – specify the raag for your search.</p></li>
+<li><p><a class="reference external" href="writers.html">writer</a> <em>(int)</em> – specify the banikaar, writer of the specific bani.</p></li>
+<li><p><strong>page</strong> <em>(int)</em> – specify page of search results.</p></li>
+<li><p><strong>results</strong> <em>(int)</em> – specify number of results you want.</p></li>
 </ul>
+</dd>
+</dl>
+<p><strong>Returns:</strong>    Search Results as dictionary(key-value pair).</p>
+<p><strong>Return type:</strong>    dict</p>
 <section id="example">
-<h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Searching Bandhana Har Bandhana Gun Gaavo Gopal Rai....</span>
 <span class="n">shabad_data</span> <span class="o">=</span> <span class="n">banidb</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;bhbgggr&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">shabad_data</span><span class="p">)</span>
@@ -90,7 +91,6 @@ specific bani.</p></li>
 </div>
 </section>
 </section>
-</section>
 
 
           </div>
@@ -111,7 +111,7 @@ specific bani.</p></li>
 <h3>Navigation</h3>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Search</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example">Example</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="shabad.html">Shabad</a></li>
