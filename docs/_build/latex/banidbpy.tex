@@ -9,40 +9,53 @@
 \fi
 %% let collapsible pdf bookmarks panel have high depth per default
 \PassOptionsToPackage{bookmarksdepth=5}{hyperref}
+%% turn off hyperref patch of \index as sphinx.xdy xindy module takes care of
+%% suitable \hyperpage mark-up, working around hyperref-xindy incompatibility
+\PassOptionsToPackage{hyperindex=false}{hyperref}
+%% memoir class requires extra handling
+\makeatletter\@ifclassloaded{memoir}
+{\ifdefined\memhyperindexfalse\memhyperindexfalse\fi}{}\makeatother
 
 \PassOptionsToPackage{warn}{textcomp}
-\usepackage{fontspec}
-\ifdefined\DeclareUnicodeCharacter
-% support both utf8 and utf8x syntaxes
-  \ifdefined\DeclareUnicodeCharacterAsOptional
-    \def\sphinxDUC#1{\DeclareUnicodeCharacter{"#1}}
-  \else
-    \let\sphinxDUC\DeclareUnicodeCharacter
-  \fi
-  \sphinxDUC{00A0}{\nobreakspace}
-  \sphinxDUC{2500}{\sphinxunichar{2500}}
-  \sphinxDUC{2502}{\sphinxunichar{2502}}
-  \sphinxDUC{2514}{\sphinxunichar{2514}}
-  \sphinxDUC{251C}{\sphinxunichar{251C}}
-  \sphinxDUC{2572}{\textbackslash}
-\fi
+
+\catcode`^^^^00a0\active\protected\def^^^^00a0{\leavevmode\nobreak\ }
 \usepackage{cmap}
 \usepackage{fontspec}
+\defaultfontfeatures[\rmfamily,\sffamily,\ttfamily]{}
 \usepackage{amsmath,amssymb,amstext}
-\usepackage{babel}
+\usepackage{polyglossia}
+\setmainlanguage{english}
 
 
 
-\usepackage{tgtermes}
-\usepackage{tgheros}
-\renewcommand{\ttdefault}{txtt}
+\setmainfont{FreeSerif}[
+  Extension      = .otf,
+  UprightFont    = *,
+  ItalicFont     = *Italic,
+  BoldFont       = *Bold,
+  BoldItalicFont = *BoldItalic
+]
+\setsansfont{FreeSans}[
+  Extension      = .otf,
+  UprightFont    = *,
+  ItalicFont     = *Oblique,
+  BoldFont       = *Bold,
+  BoldItalicFont = *BoldOblique,
+]
+\setmonofont{FreeMono}[
+  Extension      = .otf,
+  UprightFont    = *,
+  ItalicFont     = *Oblique,
+  BoldFont       = *Bold,
+  BoldItalicFont = *BoldOblique,
+]
 
 
 
 \usepackage[Bjarne]{fncychap}
 \usepackage{sphinx}
 
-\fvset{fontsize=auto}
+\fvset{fontsize=\small}
 \usepackage{geometry}
 
 
@@ -93,39 +106,39 @@ Return a dictionary of search results.
 \item[{\sphinxstylestrong{Parameters:}}] \leavevmode\begin{itemize}
 \item {} 
 \sphinxAtStartPar
-\sphinxstylestrong{query} \sphinxstyleemphasis{(str or int)} \textendash{} what you want to search.
+\sphinxstylestrong{query} \sphinxstyleemphasis{(str or int)} – what you want to search.
 
 \item {} 
 \sphinxAtStartPar
-\sphinxhref{searchtype.html}{searchtype} \sphinxstyleemphasis{(int)} \textendash{} how you want to search (first letter, word, ang, etc).
+\sphinxhref{searchtype.html}{searchtype} \sphinxstyleemphasis{(int)} – how you want to search (first letter, word, ang, etc).
 
 \item {} 
 \sphinxAtStartPar
-\sphinxhref{sources.html}{source} \sphinxstyleemphasis{(str)} \textendash{} from where you want to search (by default, Guru Granth Sahib Ji).
+\sphinxhref{sources.html}{source} \sphinxstyleemphasis{(str)} – from where you want to search (by default, Guru Granth Sahib Ji).
 
 \item {} 
 \sphinxAtStartPar
-\sphinxstylestrong{larivaar} \sphinxstyleemphasis{(bool)} \textendash{} you want it to be in larivaar or not.
+\sphinxstylestrong{larivaar} \sphinxstyleemphasis{(bool)} – you want it to be in larivaar or not.
 
 \item {} 
 \sphinxAtStartPar
-\sphinxstylestrong{ang} \sphinxstyleemphasis{(int)} \textendash{} specify the ang to search from, for more precise results.
+\sphinxstylestrong{ang} \sphinxstyleemphasis{(int)} – specify the ang to search from, for more precise results.
 
 \item {} 
 \sphinxAtStartPar
-\sphinxstylestrong{raag} \sphinxstyleemphasis{(int)} \textendash{} specify the raag for your search.
+\sphinxstylestrong{raag} \sphinxstyleemphasis{(int)} – specify the raag for your search.
 
 \item {} 
 \sphinxAtStartPar
-\sphinxhref{writers.html}{writer} \sphinxstyleemphasis{(int)} \textendash{} specify the banikaar, writer of the specific bani.
+\sphinxhref{writers.html}{writer} \sphinxstyleemphasis{(int)} – specify the banikaar, writer of the specific bani.
 
 \item {} 
 \sphinxAtStartPar
-\sphinxstylestrong{page} \sphinxstyleemphasis{(int)} \textendash{} specify page of search results.
+\sphinxstylestrong{page} \sphinxstyleemphasis{(int)} – specify page of search results.
 
 \item {} 
 \sphinxAtStartPar
-\sphinxstylestrong{results} \sphinxstyleemphasis{(int)} \textendash{} specify number of results you want.
+\sphinxstylestrong{results} \sphinxstyleemphasis{(int)} – specify number of results you want.
 
 \end{itemize}
 
@@ -190,7 +203,7 @@ Return a dictionary of search results.
 \item[{\sphinxstylestrong{Parameters:}}] \leavevmode\begin{itemize}
 \item {} 
 \sphinxAtStartPar
-\sphinxstylestrong{shabad\_id} \sphinxstyleemphasis{(int)} \textendash{} id of the specific shabad, recieved from the \sphinxhref{searchdb.html}{search} results.
+\sphinxstylestrong{shabad\_id} \sphinxstyleemphasis{(int)} – id of the specific shabad, recieved from the \sphinxhref{searchdb.html}{search} results.
 
 \item {} 
 \sphinxAtStartPar
@@ -337,15 +350,15 @@ Returns Hukamnama Sahib.
 \item[{\sphinxstylestrong{Parameters:}}] \leavevmode\begin{itemize}
 \item {} 
 \sphinxAtStartPar
-\sphinxstylestrong{year} \sphinxstyleemphasis{(int)} \textendash{} \sphinxstyleemphasis{\{Optional\}} year of the hukamnama.
+\sphinxstylestrong{year} \sphinxstyleemphasis{(int)} – \sphinxstyleemphasis{\{Optional\}} year of the hukamnama.
 
 \item {} 
 \sphinxAtStartPar
-\sphinxstylestrong{month} \sphinxstyleemphasis{(int)} \textendash{} \sphinxstyleemphasis{\{Optional\}} month of the hukamnama.
+\sphinxstylestrong{month} \sphinxstyleemphasis{(int)} – \sphinxstyleemphasis{\{Optional\}} month of the hukamnama.
 
 \item {} 
 \sphinxAtStartPar
-\sphinxstylestrong{day} \sphinxstyleemphasis{(int)} \textendash{} \sphinxstyleemphasis{\{Optional\}} day of the hukamnama.
+\sphinxstylestrong{day} \sphinxstyleemphasis{(int)} – \sphinxstyleemphasis{\{Optional\}} day of the hukamnama.
 
 \end{itemize}
 

@@ -23,7 +23,7 @@ author = 'Khalis Foundation'
 
 # The full version, including alpha/beta/rc tags
 release = '[0.4.1]'
-
+latex_engine = 'xelatex'
 
 # -- General configuration ---------------------------------------------------
 
