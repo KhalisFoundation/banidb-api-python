@@ -7,7 +7,14 @@
 
    searchdb
    shabad
+   random
    hukamnama
+   angs
+   banis
+   amritkeertan
+   kosh
+   raags
+   rehats
    sources
    writers
    searchtype

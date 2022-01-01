@@ -1,3 +1,5 @@
+from datetime import date
+year = date.today().year
 # Configuration file for the Sphinx documentation builder.
 #
 # This file only contains a selection of the most common options. For a full
@@ -18,7 +20,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'BaniDB.py'
-copyright = '2021, Khalis Foundation'
+copyright = f'{year}, Khalis Foundation'
 author = 'Khalis Foundation'
 
 # The full version, including alpha/beta/rc tags
