@@ -3,7 +3,7 @@
 
 [![powered-by-banidb](powered-by-banidb.svg)](https://banidb.com)
 [![made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://pypi.org/project/banidb/)
-[![docs-passing](docs-passing.svg)](banidbpy.rtfd.io)
+[![docs-passing](docs-passing.svg)](https://banidbpy.rtfd.io)
 
 # Vision Statement
 
