@@ -1,0 +1,238 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Kosh &#8212; BaniDB.py [0.4.1] documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Raags" href="raags.html" />
+    <link rel="prev" title="Amrit Keertan" href="amritkeertan.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="kosh">
+<h1>Kosh<a class="headerlink" href="#kosh" title="Permalink to this headline">¶</a></h1>
+<p>Get words from Shabad Kosh starting with the given first letter, words
+can be searched for meaning using <a class="reference external" href="#kosh-word">Kosh Word</a> function.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">banidb</span><span class="o">.</span><span class="n">kosh</span><span class="p">(</span><span class="n">letter</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Returns words(starting with given letter).</p>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p><strong>letter</strong> <em>(str)</em>: the first letter of the words you wanna know.</p></li>
+</ul>
+<p><strong>Returns</strong>: Words (starting with letter) from kosh as list of
+dictionaries.</p>
+<p><strong>Return type</strong>: list</p>
+<p><strong>Example</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">kosh_data</span> <span class="o">=</span> <span class="n">banidb</span><span class="o">.</span><span class="n">kosh</span><span class="p">(</span><span class="s1">&#39;d&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">kosh_data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Output</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;word_uni&quot;</span><span class="p">:</span> <span class="s2">&quot;ਦ&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;word&quot;</span><span class="p">:</span> <span class="s2">&quot;d&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;word_uni&quot;</span><span class="p">:</span> <span class="s2">&quot;ਦਉਣੁ&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;word&quot;</span><span class="p">:</span> <span class="s2">&quot;dauxu&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;word_uni&quot;</span><span class="p">:</span> <span class="s2">&quot;ਦਉਤ&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;word&quot;</span><span class="p">:</span> <span class="s2">&quot;dauq&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;word_uni&quot;</span><span class="p">:</span> <span class="s2">&quot;ਦਉਰ&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;word&quot;</span><span class="p">:</span> <span class="s2">&quot;daur&quot;</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<section id="kosh-search">
+<h2>Kosh Search<a class="headerlink" href="#kosh-search" title="Permalink to this headline">¶</a></h2>
+<p>Get words and definitions related to query from Shabad Kosh.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">banidb</span><span class="o">.</span><span class="n">kosh_search</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Returns related words with definition of given query word.</p>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p><strong>query</strong> <em>(str)</em>: the word whose related definitions you wanna know.</p></li>
+</ul>
+<p><strong>Returns</strong>: Related Definition of Words from Shabad Kosh as list of
+dictionaries.</p>
+<p><strong>Return type</strong>: list</p>
+<p><strong>Example</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">kosh_data</span> <span class="o">=</span> <span class="n">banidb</span><span class="o">.</span><span class="n">kosh_search</span><span class="p">(</span><span class="s1">&#39;AnMd&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">kosh_data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Output</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="p">{</span>
+       <span class="s2">&quot;word_uni&quot;</span><span class="p">:</span><span class="s2">&quot;ਉਪਾਰਜਨਾ&quot;</span><span class="p">,</span>
+       <span class="s2">&quot;word&quot;</span><span class="p">:</span><span class="s2">&quot;aupwrjnw&quot;</span><span class="p">,</span>
+       <span class="s2">&quot;def_uni&quot;</span><span class="p">:</span><span class="s2">&quot;ਸੰ. ਉਪਰਾਗਨ. ਕ੍ਰਿ- ਰੰਗਣਾ. ਚਿਤ੍ਰਨਾ। ੨. ਸਿੰਗਾਰਨਾ. &quot;&quot;ਕੋਟਿ ਉਪਾਰਜਨਾ ਤੇਰੇ ਅੰਗ.&quot;&quot; (ਭੈਰ ਅਃ ਮਃ ੫) ੩. ਸੰ. ਉਪਾਜੰਨ. ਜਮਾ ਕਰਨਾ. &quot;&quot;ਫਲਗੁਣਿ ਅਨੰਦ ਉਪਾਰਜਨਾ.&quot;&quot; (ਮਾਝ ਬਾਰਾਮਾਹਾ) ੪. ਉਪਾਰ੍‌ਜਿਤ. ਪੈਦਾ ਕੀਤੀ ਹੋਈ- ਸ੍ਰਿਸ੍ਟੀ;. ਮਖ਼ਲੂਕ਼ਾਤ. &quot;&quot;ਸਿਮਰੈ ਸਗਲ ਉਪਾਰਜਨਾ.&quot;&quot; (ਮਾਰੂ ਸੋਲਹੇ ਮਃ ੫) &quot;&quot;ਜੇਤ ਕੀਨ ਉਪਾਰਜਨਾ ਪ੍ਰਭੁ ਦਾਨ ਦੇਇ ਦਤਾਰ.&quot;&quot; (ਮਾਲੀ ਮਃ ੫)&quot;</span>
+       <span class="s2">&quot;def&quot;</span><span class="p">:</span><span class="s2">&quot;sM. auprwgn. ikR- rMgxw. icqRnw[ 2. isMgwrnw. &quot;&quot;koit aupwrjnw qyry AMg.&quot;&quot; (BYr AÚ mÚ 5) 3. sM. aupwjMn. jmw krnw. &quot;&quot;Plguix AnMd aupwrjnw.&quot;&quot; (mwJ bwrwmwhw) 4. aupwrijq. pYdw kIqI hoeI- isRs†I;. m^lUkæwq. &quot;&quot;ismrY sgl aupwrjnw.&quot;&quot; (mwrU solhy mÚ 5) &quot;&quot;jyq kIn aupwrjnw pRBu dwn dyie dqwr.&quot;&quot; (mwlI mÚ 5)&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+       <span class="s2">&quot;word_uni&quot;</span><span class="p">:</span><span class="s2">&quot;ਅਸ਼੍ਰੁ&quot;</span><span class="p">,</span>
+       <span class="s2">&quot;word&quot;</span><span class="p">:</span><span class="s2">&quot;ASRü&quot;</span><span class="p">,</span>
+       <span class="s2">&quot;def_uni&quot;</span><span class="p">:</span><span class="s2">&quot;ਸੰ. ਸੰਗ੍ਯਾ- ਅੱਥਰੂ. ਆਂਸੂ. ਹੰਝੂ. ਸ਼ੋਕ ਜਾਂ ਅਨੰਦ ਦੇ ਅਸਰ ਨਾਲ ਨੇਤ੍ਰਾਂ ਤੋਂ ਨਿਕਲਿਆ ਜਲ.&quot;</span>
+       <span class="s2">&quot;def&quot;</span><span class="p">:</span><span class="s2">&quot;sM. sMgÎw- A`QrU. AWsU. hMJU. Sok jW AnMd dy Asr nwl nyqRW qoN inkilAw jl.&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+       <span class="s2">&quot;word_uni&quot;</span><span class="p">:</span><span class="s2">&quot;ਅਕਥ&quot;</span><span class="p">,</span>
+       <span class="s2">&quot;word&quot;</span><span class="p">:</span><span class="s2">&quot;AkQ&quot;</span><span class="p">,</span>
+       <span class="s2">&quot;def_uni&quot;</span><span class="p">:</span><span class="s2">&quot;ਸੰ. ਅਕਥ੍ਯ. ਵਿ- ਜੋ ਬਿਆਨ ਨਾ ਕੀਤਾ ਜਾ ਸਕੇ. ਅਕਥਨੀਯ। ੨. ਪਾਰਬ੍ਰਹਮ. ਕਰਤਾਰ. &quot;&quot;ਅਕਥ ਕੀ ਕਰਹਿ ਕਹਾਣੀ.&quot;&quot; (ਅਨੰਦੁ)&quot;</span>
+       <span class="s2">&quot;def&quot;</span><span class="p">:</span><span class="s2">&quot;sM. AkQÎ. iv- jo ibAwn nw kIqw jw sky. AkQnIX[ 2. pwrbRhm. krqwr. &quot;&quot;AkQ kI krih khwxI.&quot;&quot; (AnMdu)&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="o">...</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="kosh-word">
+<h2>Kosh Word<a class="headerlink" href="#kosh-word" title="Permalink to this headline">¶</a></h2>
+<p>Get definition of given word from Shabad Kosh.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">banidb</span><span class="o">.</span><span class="n">kosh_word</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Returns definition of given word.</p>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p><strong>word</strong> <em>(str)</em>: the word whose definition you wanna know.</p></li>
+</ul>
+<p><strong>Returns</strong>: Definition of Word from Shabad Kosh as list of
+dictionaries.</p>
+<p><strong>Return type</strong>: list</p>
+<p><strong>Example</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">kosh_data</span> <span class="o">=</span> <span class="n">banidb</span><span class="o">.</span><span class="n">kosh_word</span><span class="p">(</span><span class="s1">&#39;d&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">kosh_data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Output</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+   <span class="p">{</span>
+      <span class="s2">&quot;word_uni&quot;</span><span class="p">:</span><span class="s2">&quot;ਦ&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;word&quot;</span><span class="p">:</span><span class="s2">&quot;d&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;def_uni&quot;</span><span class="p">:</span><span class="s2">&quot;ਪੰਜਾਬੀ ਵਰਣਮਾਲਾ ਦਾ ਤੇਈਸਵਾਂ ਅੱਖਰ, ਇਸ ਦਾ ਉੱਚਾਰਣ ਅਸਥਾਨ ਦੰਦ ਹਨ. ਜੀਭ ਦੀ ਨੋਕ ਉੱਪਰਲੇ ਦੰਦਾਂ ਦੇ ਮੂਲ ਵਿੱਚ ਲੱਗਣ ਤੋਂ ਇਸ ਦਾ ਸ਼ਬਦ ਸਪਸ੍ਟ</span><span class="se">\uf032</span><span class="s2"> ਹੁੰਦਾ ਹੈ। ੨. ਸੰ. ਸੰਗ੍ਯਾ- ਪਹਾੜ। ੩. ਦੰਦ. ਦਾਂਤ। ੪. ਰਖ੍ਯਾ. ਹਿਫ਼ਾਜ</span><span class="se">\uf033</span><span class="s2">ਤ। ੫. ਭਾਰਯਾ. ਵਹੁਟੀ। ੬. ਵਿ- ਦਾਤਾ. ਦੇਣ ਵਾਲਾ. ਇਸ ਅਰਥ ਵਿੱਚ ਇਹ ਕਿਸੇ ਸ਼ਬਦ ਦੇ ਅੰਤ ਲੱਗਕੇ ਅਰਥ ਬੋਧ ਕਰਾਉਂਦਾ ਹੈ, ਜਿਵੇਂ- ਸੁਖਦ, ਜਲਦ ਆਦਿ.&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;def&quot;</span><span class="p">:</span><span class="s2">&quot;pMjwbI vrxmwlw dw qyeIsvW A`Kr, ies dw au`cwrx AsQwn dMd hn. jIB dI nok au`prly dMdW dy mUl iv`c l`gx qoN ies dw Sbd sps†</span><span class="se">\uf032</span><span class="s2"> huMdw hY[ 2. sM. sMgÎw- phwV[ 3. dMd. dWq[ 4. rKÎw. ih&amp;wj</span><span class="se">\uf033</span><span class="s2">q[ 5. BwrXw. vhutI[ 6. iv- dwqw. dyx vwlw. ies ArQ iv`c ieh iksy Sbd dy AMq l`gky ArQ boD krwauNdw hY, ijvyN- suKd, jld Awid.&quot;</span>
+   <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">BaniDB.py</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="searchdb.html">Search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shabad.html">Shabad</a></li>
+<li class="toctree-l1"><a class="reference internal" href="random.html">Random</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hukamnama.html">Hukamnama</a></li>
+<li class="toctree-l1"><a class="reference internal" href="angs.html">Angs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="banis.html">Banis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="amritkeertan.html">Amrit Keertan</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Kosh</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#kosh-search">Kosh Search</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#kosh-word">Kosh Word</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="raags.html">Raags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rehats.html">Rehats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sources.html">Sources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="writers.html">Writers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="searchtype.html">Search Types</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="amritkeertan.html" title="previous chapter">Amrit Keertan</a></li>
+      <li>Next: <a href="raags.html" title="next chapter">Raags</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Khalis Foundation.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.3.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/kosh.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

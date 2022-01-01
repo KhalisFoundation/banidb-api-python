@@ -1,0 +1,267 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Bani &#8212; BaniDB.py [0.4.1] documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Amrit Keertan" href="amritkeertan.html" />
+    <link rel="prev" title="Banis" href="banis.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="bani">
+<h1>Bani<a class="headerlink" href="#bani" title="Permalink to this headline">¶</a></h1>
+<p>Get Sundar Gutka Bani using Bani Id.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">banidb</span><span class="o">.</span><span class="n">bani</span><span class="p">(</span><span class="n">bani_id</span><span class="p">,</span> <span class="n">larivaar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Returns bani ids to be used in <a class="reference external" href="bani">bani</a> to get specific bani.</p>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p><strong>bani_id</strong> <em>(str or int)</em>: id of the specific bani, recieved from
+the <a class="reference external" href="banis">banis</a>.</p></li>
+<li><p><strong>larivaar</strong> <em>(bool)</em>: you want it to be in larivaar or not.</p></li>
+</ul>
+<p><strong>Returns</strong>: Specific Sundar Gutka Bani as dictionary(key-value pair).</p>
+<p><strong>Return type</strong>: dict</p>
+<section id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">bani_data</span> <span class="o">=</span> <span class="n">banidb</span><span class="o">.</span><span class="n">bani</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">bani_data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Output</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="s2">&quot;info&quot;</span><span class="p">:{</span>
+      <span class="s2">&quot;bani_id&quot;</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span>
+      <span class="s2">&quot;unicode&quot;</span><span class="p">:</span><span class="s2">&quot;ਅਨੰਦੁ ਸਾਹਿਬ&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;english&quot;</span><span class="p">:</span><span class="s2">&quot;ana(n)dh saahib&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;hindi&quot;</span><span class="p">:</span><span class="s2">&quot;अनंदु साहिब&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;ipa&quot;</span><span class="p">:</span><span class="s2">&quot;ənəⁿd̪ sɑhɪb&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;urdu&quot;</span><span class="p">:</span><span class="s2">&quot;انµد ساهب&quot;</span>
+   <span class="p">},</span>
+   <span class="s2">&quot;raag&quot;</span><span class="p">:{</span>
+      <span class="s2">&quot;raagId&quot;</span><span class="p">:</span><span class="mi">22</span><span class="p">,</span>
+      <span class="s2">&quot;gurmukhi&quot;</span><span class="p">:</span><span class="s2">&quot;rwgu rwmklI&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;unicode&quot;</span><span class="p">:</span><span class="s2">&quot;ਰਾਗੁ ਰਾਮਕਲੀ&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;english&quot;</span><span class="p">:</span><span class="s2">&quot;Raag Raamkalee&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;raagWithPage&quot;</span><span class="p">:</span><span class="s2">&quot;Raamkalee (876-974)&quot;</span>
+   <span class="p">},</span>
+   <span class="s2">&quot;source&quot;</span><span class="p">:{</span>
+      <span class="s2">&quot;sourceId&quot;</span><span class="p">:</span><span class="s2">&quot;G&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;gurmukhi&quot;</span><span class="p">:</span><span class="s2">&quot;sRI gurU gRMQ swihb jI&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;unicode&quot;</span><span class="p">:</span><span class="s2">&quot;ਸ੍ਰੀ ਗੁਰੂ ਗ੍ਰੰਥ ਸਾਹਿਬ ਜੀ&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;english&quot;</span><span class="p">:</span><span class="s2">&quot;Sri Guru Granth Sahib Ji&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;pageNo&quot;</span><span class="p">:</span><span class="mi">917</span>
+   <span class="p">},</span>
+   <span class="s2">&quot;verses&quot;</span><span class="p">:[</span>
+      <span class="p">{</span>
+         <span class="s2">&quot;verse_id&quot;</span><span class="p">:</span><span class="mi">1783</span><span class="p">,</span>
+         <span class="s2">&quot;verse&quot;</span><span class="p">:</span><span class="s2">&quot;ੴ ਸਤਿਗੁਰ ਪ੍ਰਸਾਦਿ ॥&quot;</span><span class="p">,</span>
+         <span class="s2">&quot;steek&quot;</span><span class="p">:{</span>
+            <span class="s2">&quot;en&quot;</span><span class="p">:{</span>
+               <span class="s2">&quot;bdb&quot;</span><span class="p">:</span><span class="s2">&quot;One Universal Creator God. By The Grace Of The True Guru:&quot;</span><span class="p">,</span>
+               <span class="s2">&quot;ms&quot;</span><span class="p">:</span><span class="s2">&quot;There is but One God. By True Guru&#39;s grace, He is obtained.&quot;</span><span class="p">,</span>
+               <span class="s2">&quot;ssk&quot;</span><span class="p">:</span><span class="s2">&quot;One Universal Creator God. By The Grace Of The True Guru:&quot;</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;pu&quot;</span><span class="p">:{</span>
+               <span class="s2">&quot;ss&quot;</span><span class="p">:{</span>
+                  <span class="s2">&quot;gurmukhi&quot;</span><span class="p">:</span><span class="s2">&quot;None&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;unicode&quot;</span><span class="p">:</span><span class="s2">&quot;None&quot;</span>
+               <span class="p">},</span>
+               <span class="s2">&quot;ft&quot;</span><span class="p">:{</span>
+                  <span class="s2">&quot;gurmukhi&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;unicode&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span>
+               <span class="p">},</span>
+               <span class="s2">&quot;bdb&quot;</span><span class="p">:{</span>
+                  <span class="s2">&quot;gurmukhi&quot;</span><span class="p">:</span><span class="s2">&quot;None&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;unicode&quot;</span><span class="p">:</span><span class="s2">&quot;None&quot;</span>
+               <span class="p">},</span>
+               <span class="s2">&quot;ms&quot;</span><span class="p">:{</span>
+                  <span class="s2">&quot;gurmukhi&quot;</span><span class="p">:</span><span class="s2">&quot;vwihgurU kyvl iek hY[ s¤cy gurW dI dieAw duAwrw auh pwieAw jWdw hY[&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;unicode&quot;</span><span class="p">:</span><span class="s2">&quot;ਵਾਹਿਗੁਰੂ ਕੇਵਲ ਇਕ ਹੈ। ਸੱਚੇ ਗੁਰਾਂ ਦੀ ਦਇਆ ਦੁਆਰਾ ਉਹ ਪਾਇਆ ਜਾਂਦਾ ਹੈ।&quot;</span>
+               <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;es&quot;</span><span class="p">:{</span>
+               <span class="s2">&quot;sn&quot;</span><span class="p">:</span><span class="s2">&quot;Un Dios Creador del Universo, por la Gracia del Verdadero Guru&quot;</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;hi&quot;</span><span class="p">:{</span>
+
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="s2">&quot;translit&quot;</span><span class="p">:{</span>
+            <span class="s2">&quot;english&quot;</span><span class="p">:</span><span class="s2">&quot;ikOankaar satigur prasaadh ||&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;hindi&quot;</span><span class="p">:</span><span class="s2">&quot;ੴ सतिगुर प्रसादि ॥&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;en&quot;</span><span class="p">:</span><span class="s2">&quot;ikOankaar satigur prasaadh ||&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;hi&quot;</span><span class="p">:</span><span class="s2">&quot;ੴ सतिगुर प्रसादि ॥&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;ipa&quot;</span><span class="p">:</span><span class="s2">&quot;ɪk oəŋkɑɾ sət̪ɪGʊr pɹəsɑd̪.&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;ur&quot;</span><span class="p">:</span><span class="s2">&quot;اک اونکار ستگر پرساد ۔۔&quot;</span>
+         <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+         <span class="s2">&quot;verse_id&quot;</span><span class="p">:</span><span class="mi">1784</span><span class="p">,</span>
+         <span class="s2">&quot;verse&quot;</span><span class="p">:</span><span class="s2">&quot;ਰਾਮਕਲੀ ਮਹਲਾ ੩ ਅਨੰਦੁ&quot;</span><span class="p">,</span>
+         <span class="s2">&quot;steek&quot;</span><span class="p">:{</span>
+            <span class="s2">&quot;en&quot;</span><span class="p">:{</span>
+               <span class="s2">&quot;bdb&quot;</span><span class="p">:</span><span class="s2">&quot;Raamkalee, Third Mehla, Anand ~ The Song Of Bliss:&quot;</span><span class="p">,</span>
+               <span class="s2">&quot;ms&quot;</span><span class="p">:</span><span class="s2">&quot;Ramkali 3rd Guru. Anand.&quot;</span><span class="p">,</span>
+               <span class="s2">&quot;ssk&quot;</span><span class="p">:</span><span class="s2">&quot;Raamkalee, Third Mehl, Anand ~ The Song Of Bliss:&quot;</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;pu&quot;</span><span class="p">:{</span>
+               <span class="s2">&quot;ss&quot;</span><span class="p">:{</span>
+                  <span class="s2">&quot;gurmukhi&quot;</span><span class="p">:</span><span class="s2">&quot;None&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;unicode&quot;</span><span class="p">:</span><span class="s2">&quot;None&quot;</span>
+               <span class="p">},</span>
+               <span class="s2">&quot;ft&quot;</span><span class="p">:{</span>
+                  <span class="s2">&quot;gurmukhi&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;unicode&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span>
+               <span class="p">},</span>
+               <span class="s2">&quot;bdb&quot;</span><span class="p">:{</span>
+                  <span class="s2">&quot;gurmukhi&quot;</span><span class="p">:</span><span class="s2">&quot;None&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;unicode&quot;</span><span class="p">:</span><span class="s2">&quot;None&quot;</span>
+               <span class="p">},</span>
+               <span class="s2">&quot;ms&quot;</span><span class="p">:{</span>
+                  <span class="s2">&quot;gurmukhi&quot;</span><span class="p">:</span><span class="s2">&quot;rwmklI qIjI pwiqSwhI[ AMnd[&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;unicode&quot;</span><span class="p">:</span><span class="s2">&quot;ਰਾਮਕਲੀ ਤੀਜੀ ਪਾਤਿਸ਼ਾਹੀ। ਅੰਨਦ।&quot;</span>
+               <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;es&quot;</span><span class="p">:{</span>
+               <span class="s2">&quot;sn&quot;</span><span class="p">:</span><span class="s2">&quot;Ramkali, Mejl Guru Amar Das, Tercer Canal Divino, Anand -La Melodía del Éxtasis.&quot;</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;hi&quot;</span><span class="p">:{</span>
+
+            <span class="p">}</span>
+         <span class="p">},</span>
+         <span class="s2">&quot;translit&quot;</span><span class="p">:{</span>
+            <span class="s2">&quot;english&quot;</span><span class="p">:</span><span class="s2">&quot;raamakalee mahalaa teejaa ana(n)dhu&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;hindi&quot;</span><span class="p">:</span><span class="s2">&quot;रामकली महला ३ अनंदु&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;en&quot;</span><span class="p">:</span><span class="s2">&quot;raamakalee mahalaa teejaa ana(n)dhu&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;hi&quot;</span><span class="p">:</span><span class="s2">&quot;रामकली महला ३ अनंदु&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;ipa&quot;</span><span class="p">:</span><span class="s2">&quot;rɑməkəli məhəlɑ t̪id͡ʒɑ ənəⁿd̪ʊ&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;ur&quot;</span><span class="p">:</span><span class="s2">&quot;رامکلیِ مهلا ۳ انµد&quot;</span>
+         <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="o">...</span>
+   <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">BaniDB.py</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="searchdb.html">Search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shabad.html">Shabad</a></li>
+<li class="toctree-l1"><a class="reference internal" href="random.html">Random</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hukamnama.html">Hukamnama</a></li>
+<li class="toctree-l1"><a class="reference internal" href="angs.html">Angs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="banis.html">Banis</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Bani</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="amritkeertan.html">Amrit Keertan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="amritkeertan.html#amrit-keertan-search">Amrit Keertan Search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kosh.html">Kosh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="koshsearch.html">Kosh Search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="koshword.html">Kosh Word</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raags.html">Raags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raag.html">Raag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rehats.html">Rehats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rehats.html#rehat">Rehat</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rehats.html#rehat-chapter">Rehat Chapter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rehats.html#rehat-search">Rehat Search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sources.html">Sources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="writers.html">Writers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="searchtype.html">Search Types</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="banis.html" title="previous chapter">Banis</a></li>
+      <li>Next: <a href="amritkeertan.html" title="next chapter">Amrit Keertan</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Khalis Foundation.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.3.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/bani.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

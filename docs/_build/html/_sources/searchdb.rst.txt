@@ -19,9 +19,9 @@ Return a dictionary of search results.
 
     - **larivaar** *(bool)* – you want it to be in larivaar or not.
 
-    - **ang** *(int)* – specify the ang to search from, for more precise results.
+    - `ang <angs.html>`__ *(int)* – specify the ang to search from, for more precise results.
 
-    - **raag** *(int)* – specify the raag for your search.
+    - `raag <raags.html>`__ *(int)* – specify the raag for your search.
 
     - `writer <writers.html>`__ *(int)* – specify the banikaar, writer of the specific bani.
 

@@ -1,0 +1,40 @@
+Kosh Word
+---------
+
+Get definition of given word from Shabad Kosh.
+
+.. code:: python
+
+   banidb.kosh_word(word)
+
+Returns definition of given word.
+
+**Parameters:**
+
+-  **word** *(str)*: the word whose definition you wanna know.
+
+**Returns**: Definition of Word from Shabad Kosh as list of
+dictionaries.
+
+**Return type**: list
+
+Example
+^^^^^^^
+
+.. code:: python
+
+   kosh_data = banidb.kosh_word('d')
+   print(kosh_data)
+
+**Output**
+
+.. code:: 
+
+   [
+      {
+         "word_uni":"ਦ",
+         "word":"d",
+         "def_uni":"ਪੰਜਾਬੀ ਵਰਣਮਾਲਾ ਦਾ ਤੇਈਸਵਾਂ ਅੱਖਰ, ਇਸ ਦਾ ਉੱਚਾਰਣ ਅਸਥਾਨ ਦੰਦ ਹਨ. ਜੀਭ ਦੀ ਨੋਕ ਉੱਪਰਲੇ ਦੰਦਾਂ ਦੇ ਮੂਲ ਵਿੱਚ ਲੱਗਣ ਤੋਂ ਇਸ ਦਾ ਸ਼ਬਦ ਸਪਸ੍ਟ\uf032 ਹੁੰਦਾ ਹੈ। ੨. ਸੰ. ਸੰਗ੍ਯਾ- ਪਹਾੜ। ੩. ਦੰਦ. ਦਾਂਤ। ੪. ਰਖ੍ਯਾ. ਹਿਫ਼ਾਜ\uf033ਤ। ੫. ਭਾਰਯਾ. ਵਹੁਟੀ। ੬. ਵਿ- ਦਾਤਾ. ਦੇਣ ਵਾਲਾ. ਇਸ ਅਰਥ ਵਿੱਚ ਇਹ ਕਿਸੇ ਸ਼ਬਦ ਦੇ ਅੰਤ ਲੱਗਕੇ ਅਰਥ ਬੋਧ ਕਰਾਉਂਦਾ ਹੈ, ਜਿਵੇਂ- ਸੁਖਦ, ਜਲਦ ਆਦਿ.",
+         "def":"pMjwbI vrxmwlw dw qyeIsvW A`Kr, ies dw au`cwrx AsQwn dMd hn. jIB dI nok au`prly dMdW dy mUl iv`c l`gx qoN ies dw Sbd sps†\uf032 huMdw hY[ 2. sM. sMgÎw- phwV[ 3. dMd. dWq[ 4. rKÎw. ih&wj\uf033q[ 5. BwrXw. vhutI[ 6. iv- dwqw. dyx vwlw. ies ArQ iv`c ieh iksy Sbd dy AMq l`gky ArQ boD krwauNdw hY, ijvyN- suKd, jld Awid."
+      }
+   ]
