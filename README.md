@@ -1,6 +1,10 @@
 # [BaniDB](https://pypi.org/user/KhalisFoundation/)
 [![](bdb.svg)](http://banidb.com)
 
+[![powered-by-banidb](banidbpy.svg)](https://https://github.com/KhalisFoundation/banidb-api-python/)
+[![made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
+[![docs-passing](docs-passing.svg)](banidbpy.rtfd.io)
+
 # Vision Statement
 
 BaniDB's vision is to create a single, universally accessible Gurbani Database for Sikh websites and applications. BaniDB is, and will continue to be, the most accurate and complete Gurbani database ever created for use by Sikhs around the world.
