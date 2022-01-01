@@ -1,8 +1,8 @@
 # [BaniDB](https://pypi.org/user/KhalisFoundation/)
 [![](bdb.svg)](http://banidb.com)
 
-[![powered-by-banidb](banidbpy.svg)](https://https://github.com/KhalisFoundation/banidb-api-python/)
-[![made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
+[![powered-by-banidb](powered-by-banidb.svg)](https://banidb.com)
+[![made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://pypi.org/project/banidb/)
 [![docs-passing](docs-passing.svg)](banidbpy.rtfd.io)
 
 # Vision Statement
