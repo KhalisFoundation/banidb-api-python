@@ -44,6 +44,7 @@ setup(
     include_package_data=True,
     project_urls={
         'Source': 'https://github.com/KhalisFoundation/banidb-api-python',
-        'Issues': 'https://git.io/JG4II'
+        'Issues': 'https://git.io/JG4II',
+        'Documentation':'https://banidbpy.readthedocs.io/'
     },
 )

@@ -1,0 +1,223 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Raags &#8212; BaniDB.py [0.4.1] documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Rehats" href="rehats.html" />
+    <link rel="prev" title="Kosh" href="kosh.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="raags">
+<h1>Raags<a class="headerlink" href="#raags" title="Permalink to this headline">¶</a></h1>
+<p>Get list of all available Raags.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">banidb</span><span class="o">.</span><span class="n">raags</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Returns</strong>: Raags with Raag Ids(used in <a class="reference external" href="#raag">raag</a>) as list of dictionaries.</p>
+<p><strong>Return type</strong>: list of dict</p>
+<p><strong>Example</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">raags_data</span> <span class="o">=</span> <span class="n">banidb</span><span class="o">.</span><span class="n">raags</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">raags_data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Output</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+   <span class="p">{</span>
+      <span class="s2">&quot;raag_id&quot;</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span>
+      <span class="s2">&quot;raag_uni&quot;</span><span class="p">:</span><span class="s2">&quot;ਸਿਰੀ ਰਾਗੁ&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;raag_eng&quot;</span><span class="p">:</span><span class="s2">&quot;Siree Raag&quot;</span>
+   <span class="p">},</span>
+   <span class="p">{</span>
+      <span class="s2">&quot;raag_id&quot;</span><span class="p">:</span><span class="mi">6</span><span class="p">,</span>
+      <span class="s2">&quot;raag_uni&quot;</span><span class="p">:</span><span class="s2">&quot;ਰਾਗੁ ਮਾਝ&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;raag_eng&quot;</span><span class="p">:</span><span class="s2">&quot;Raag Maajh&quot;</span>
+   <span class="p">},</span>
+   <span class="p">{</span>
+      <span class="s2">&quot;raag_id&quot;</span><span class="p">:</span><span class="mi">7</span><span class="p">,</span>
+      <span class="s2">&quot;raag_uni&quot;</span><span class="p">:</span><span class="s2">&quot;ਰਾਗੁ ਗਉੜੀ&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;raag_eng&quot;</span><span class="p">:</span><span class="s2">&quot;Raag Gauree&quot;</span>
+   <span class="p">},</span>
+   <span class="p">{</span>
+      <span class="s2">&quot;raag_id&quot;</span><span class="p">:</span><span class="mi">8</span><span class="p">,</span>
+      <span class="s2">&quot;raag_uni&quot;</span><span class="p">:</span><span class="s2">&quot;ਰਾਗੁ ਆਸਾ&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;raag_eng&quot;</span><span class="p">:</span><span class="s2">&quot;Raag Aasaa&quot;</span>
+   <span class="p">},</span>
+   <span class="p">{</span>
+      <span class="s2">&quot;raag_id&quot;</span><span class="p">:</span><span class="mi">9</span><span class="p">,</span>
+      <span class="s2">&quot;raag_uni&quot;</span><span class="p">:</span><span class="s2">&quot;ਰਾਗੁ ਗੂਜਰੀ&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;raag_eng&quot;</span><span class="p">:</span><span class="s2">&quot;Raag Gujri&quot;</span>
+   <span class="p">}</span>
+   <span class="o">...</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p><em>Raags from Guru Granth Sahib Ji have Raag Ids from 5 to 35!</em></p>
+<section id="raag">
+<h2>Raag<a class="headerlink" href="#raag" title="Permalink to this headline">¶</a></h2>
+<p>Get details of a specific Raag using Raag Id.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">banidb</span><span class="o">.</span><span class="n">raag</span><span class="p">(</span><span class="n">raag_id</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong>:</p>
+<ul class="simple">
+<li><p><strong>raag_id</strong> <em>(int)</em> – id of the specific raag, recieved from the
+<a class="reference external" href="raags.html">raags</a> list.</p></li>
+</ul>
+<p><strong>Returns</strong>: Details of a specific Raag as list of dictionaries.</p>
+<p><strong>Return type</strong>: list of dict</p>
+<p><strong>Example</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">raags_data</span> <span class="o">=</span> <span class="n">banidb</span><span class="o">.</span><span class="n">raag</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">raags_data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Output</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+   <span class="p">{</span>
+      <span class="s2">&quot;raag_id&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+      <span class="s2">&quot;raag_uni&quot;</span><span class="p">:</span> <span class="s2">&quot;ਰਾਗੁ ਆਸਾ&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;raag&quot;</span><span class="p">:</span> <span class="s2">&quot;Raag Aasaa&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;time_of_raag&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;3:00&quot;</span><span class="p">,</span><span class="s2">&quot;6:00&quot;</span><span class="p">),</span>
+      <span class="s2">&quot;common_themes&quot;</span><span class="p">:</span> <span class="s2">&quot;Hope&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;feeling&quot;</span><span class="p">:</span> <span class="s2">&quot;Determination&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;angs&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s2">&quot;G&quot;</span><span class="p">:[</span><span class="mi">347</span><span class="p">,</span> <span class="mi">488</span><span class="p">]</span> <span class="p">},</span>
+      <span class="s2">&quot;overview&quot;</span><span class="p">:</span> <span class="s2">&quot;Aasaa has strong emotions of inspiration and courage. This Raag gives the listener the determination and ambition to put aside any excuses and to proceed with the necessary action to achieve the aim. It generates feelings of passion and zeal to succeed and the energy generated from these feelings enables the listener to find the strength from within to achieve success, even when the achievement seems difficult. The determined mood of this Raag ensures that failure is not an option and motivates the listener to be inspired.&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;advanced&quot;</span><span class="p">:</span><span class="s2">&quot;Asa is a very old raga, once popular in the Punjab but seldom heard in concerts today. In the Ragmala this is a ragini of raga Megha. However, today it is assigned to the Bilaval thata.  Asa is a devotional raga for the cold season and is performed in the early morning just before sunrise. However, it is also known as a twilight melody with a calm mystical mood. Asa was used by Guru Nanak, Guru Angad, Guru Amar Das, Guru Ram Das, Guru Arjan and Guru Tegh Bahadur.In the Gurmat Sangeet style Aasa in a very important raag. The melodius notes of raag Asa are heard in every particle of the sacred land of Punjab. The golden rays of every dawn enter with the melodius tune of this raag and the redness of every dusk when it hides in the lap of nature, the melodious tunes of this raag sing the praises “Balhaaree kudarath vasiaa”.</span><span class="se">\n</span><span class="s2">Asa raga literally means the melody of hope. As the Gurus emphasised the singing of God’s praises before dawn, this raga is conducive to kirtan before day-break. It is a soothing and pleasing raga, appropriate for the singing of the Asa-di-var, the morning-prayer of the Sikhs.&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;musical_composure&quot;</span><span class="p">:</span> <span class="s2">&quot;Aasa Raag literally means the melody of hope. This raag is conducive to the hours before day break and also around dusk. It is a soothing and pleasing raag, appropriate for the singing of the Aasa-di-vaar. This raag is considered to be an original musical gift from Guru Nanak as there is no mention of this raag in ancient or medieval texts. Guru Nanak, Guru Angad, Guru Amar Das, Guru Ram Das, Guru Arjun and Guru Tegh Bahadur have all recited Bani in this raag. Singing time of this raag is the fourth quarter of the night 3am to 6am. In the Sikh tradition this raag is also sung in the evening.&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;placement&quot;</span><span class="p">:</span> <span class="s2">&quot;First shabad titled &#39;Solar&#39; has no rahau verse,</span><span class="se">\n\n</span><span class="s2">All other shabads and ashtpadis (pages 348 - 431 have rahau verses in them, placed mostly after the first padas, but also placed in the beginning of the shabad aswell (page 365);</span><span class="se">\n\n</span><span class="s2">In specialist compositions both &#39;Pattis&#39; of Guru Nanak and Guru Amardas have one rahau verse each placed after the first padas</span><span class="se">\n\n</span><span class="s2">All shabads of the Bhagats have one rahau verse in them placed after the first padas of the shabads.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;aroh&quot;</span><span class="p">:</span> <span class="s2">&quot;Sa, Re Ma, Pa, Dha Saˆˆ&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;avroh&quot;</span><span class="p">:</span> <span class="s2">&quot;Saˆˆ Nee Dha Pa, Ma, Ga Re Sa Re Ga Sa</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;vadi&quot;</span><span class="p">:</span> <span class="s2">&quot;Madhym (Ma)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;samvadi&quot;</span><span class="p">:</span> <span class="s2">&quot;Sharaj (Sa)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;sur&quot;</span><span class="p">:</span> <span class="s2">&quot;Gandhar and Nishad are forbidden notes in ascending scale, rest of the notes (swar) are sharp.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;thaat&quot;</span><span class="p">:</span> <span class="s2">&quot;Bilawal&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;jaati&quot;</span><span class="p">:</span> <span class="s2">&quot;Aurav – Sampooran&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;writers&quot;</span><span class="p">:</span> <span class="p">[</span>
+         <span class="s2">&quot;Guru Nanak Dev Ji&quot;</span><span class="p">,</span>
+         <span class="s2">&quot;Guru Angad Dev Ji&quot;</span><span class="p">,</span>
+         <span class="s2">&quot;Guru Amar Daas Ji&quot;</span><span class="p">,</span>
+         <span class="s2">&quot;Guru Raam Daas Ji&quot;</span><span class="p">,</span>
+         <span class="s2">&quot;Guru Arjan Dev Ji&quot;</span><span class="p">,</span>
+         <span class="s2">&quot;Bhagat Dhannaa Ji&quot;</span><span class="p">,</span>
+         <span class="s2">&quot;Bhagat Kabeer Ji&quot;</span><span class="p">,</span>
+         <span class="s2">&quot;Bhagat Naam Dev Ji&quot;</span><span class="p">,</span>
+         <span class="s2">&quot;Bhagat Ravi Daas Ji&quot;</span><span class="p">,</span>
+         <span class="s2">&quot;Bhagat Dhannaa Ji&quot;</span>
+      <span class="p">]</span>
+   <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p><em>Raags from Guru Granth Sahib Ji have Raag Ids from 5 to 35!</em></p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">BaniDB.py</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="searchdb.html">Search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shabad.html">Shabad</a></li>
+<li class="toctree-l1"><a class="reference internal" href="random.html">Random</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hukamnama.html">Hukamnama</a></li>
+<li class="toctree-l1"><a class="reference internal" href="angs.html">Angs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="banis.html">Banis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="amritkeertan.html">Amrit Keertan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kosh.html">Kosh</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Raags</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#raag">Raag</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rehats.html">Rehats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sources.html">Sources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="writers.html">Writers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="searchtype.html">Search Types</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="kosh.html" title="previous chapter">Kosh</a></li>
+      <li>Next: <a href="rehats.html" title="next chapter">Rehats</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Khalis Foundation.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.3.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/raags.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

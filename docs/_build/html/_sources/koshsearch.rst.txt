@@ -1,0 +1,53 @@
+Kosh Search
+-----------
+
+Get words and definitions related to query from Shabad Kosh.
+
+.. code:: python
+
+   banidb.kosh_search(query)
+
+Returns related words with definition of given query word.
+
+**Parameters:**
+
+-  **query** *(str)*: the word whose related definitions you wanna know.
+
+**Returns**: Related Definition of Words from Shabad Kosh as list of
+dictionaries.
+
+**Return type**: list
+
+Example
+^^^^^^^
+
+.. code:: python
+
+   kosh_data = banidb.kosh_search('AnMd')
+   print(kosh_data)
+
+**Output**
+
+.. code:: 
+
+   [
+       {
+          "word_uni":"ਉਪਾਰਜਨਾ",
+          "word":"aupwrjnw",
+          "def_uni":"ਸੰ. ਉਪਰਾਗਨ. ਕ੍ਰਿ- ਰੰਗਣਾ. ਚਿਤ੍ਰਨਾ। ੨. ਸਿੰਗਾਰਨਾ. ""ਕੋਟਿ ਉਪਾਰਜਨਾ ਤੇਰੇ ਅੰਗ."" (ਭੈਰ ਅਃ ਮਃ ੫) ੩. ਸੰ. ਉਪਾਜੰਨ. ਜਮਾ ਕਰਨਾ. ""ਫਲਗੁਣਿ ਅਨੰਦ ਉਪਾਰਜਨਾ."" (ਮਾਝ ਬਾਰਾਮਾਹਾ) ੪. ਉਪਾਰ੍‌ਜਿਤ. ਪੈਦਾ ਕੀਤੀ ਹੋਈ- ਸ੍ਰਿਸ੍ਟੀ;. ਮਖ਼ਲੂਕ਼ਾਤ. ""ਸਿਮਰੈ ਸਗਲ ਉਪਾਰਜਨਾ."" (ਮਾਰੂ ਸੋਲਹੇ ਮਃ ੫) ""ਜੇਤ ਕੀਨ ਉਪਾਰਜਨਾ ਪ੍ਰਭੁ ਦਾਨ ਦੇਇ ਦਤਾਰ."" (ਮਾਲੀ ਮਃ ੫)"
+          "def":"sM. auprwgn. ikR- rMgxw. icqRnw[ 2. isMgwrnw. ""koit aupwrjnw qyry AMg."" (BYr AÚ mÚ 5) 3. sM. aupwjMn. jmw krnw. ""Plguix AnMd aupwrjnw."" (mwJ bwrwmwhw) 4. aupwrijq. pYdw kIqI hoeI- isRs†I;. m^lUkæwq. ""ismrY sgl aupwrjnw."" (mwrU solhy mÚ 5) ""jyq kIn aupwrjnw pRBu dwn dyie dqwr."" (mwlI mÚ 5)",
+       },
+       {
+          "word_uni":"ਅਸ਼੍ਰੁ",
+          "word":"ASRü",
+          "def_uni":"ਸੰ. ਸੰਗ੍ਯਾ- ਅੱਥਰੂ. ਆਂਸੂ. ਹੰਝੂ. ਸ਼ੋਕ ਜਾਂ ਅਨੰਦ ਦੇ ਅਸਰ ਨਾਲ ਨੇਤ੍ਰਾਂ ਤੋਂ ਨਿਕਲਿਆ ਜਲ."
+          "def":"sM. sMgÎw- A`QrU. AWsU. hMJU. Sok jW AnMd dy Asr nwl nyqRW qoN inkilAw jl.",
+       },
+       {
+          "word_uni":"ਅਕਥ",
+          "word":"AkQ",
+          "def_uni":"ਸੰ. ਅਕਥ੍ਯ. ਵਿ- ਜੋ ਬਿਆਨ ਨਾ ਕੀਤਾ ਜਾ ਸਕੇ. ਅਕਥਨੀਯ। ੨. ਪਾਰਬ੍ਰਹਮ. ਕਰਤਾਰ. ""ਅਕਥ ਕੀ ਕਰਹਿ ਕਹਾਣੀ."" (ਅਨੰਦੁ)"
+          "def":"sM. AkQÎ. iv- jo ibAwn nw kIqw jw sky. AkQnIX[ 2. pwrbRhm. krqwr. ""AkQ kI krih khwxI."" (AnMdu)",
+       }
+       ...
+   ]

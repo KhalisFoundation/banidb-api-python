@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Hukamnama &#8212; BaniDB.py [0.4.1] documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Angs" href="angs.html" />
+    <link rel="prev" title="Random" href="random.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="hukamnama">
+<h1>Hukamnama<a class="headerlink" href="#hukamnama" title="Permalink to this headline">¶</a></h1>
+<div class="line-block">
+<div class="line">Get Hukamnama Sahib of any specified date after 01/01/2002</div>
+<div class="line">When no parameters are provided, it automatically gives the Hukamnama Sahib of current date, according to the availability and your Time Zone.</div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get Hukamnama for a specific date</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">banidb</span><span class="o">.</span><span class="n">hukamnama</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Returns Hukamnama Sahib.</p>
+<dl class="simple">
+<dt><strong>Parameters:</strong></dt><dd><ul class="simple">
+<li><p><strong>year</strong> <em>(int)</em> – <em>{Optional}</em> year of the hukamnama.</p></li>
+<li><p><strong>month</strong> <em>(int)</em> – <em>{Optional}</em> month of the hukamnama.</p></li>
+<li><p><strong>day</strong> <em>(int)</em> – <em>{Optional}</em> day of the hukamnama.</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>Return type:</strong>    dict</p>
+<div class="line-block">
+<div class="line"><strong>Output</strong></div>
+<div class="line">The hukamnama sahib data can be accessed as follows:</div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s1">&#39;hukam&#39;</span><span class="p">:[</span><span class="o">...</span><span class="p">]</span> <span class="c1"># List of all shabads(if more than one) in shabad format.</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="shabad.html">Shabad</a> format</p>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">BaniDB.py</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="searchdb.html">Search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shabad.html">Shabad</a></li>
+<li class="toctree-l1"><a class="reference internal" href="random.html">Random</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Hukamnama</a></li>
+<li class="toctree-l1"><a class="reference internal" href="angs.html">Angs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="banis.html">Banis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="amritkeertan.html">Amrit Keertan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kosh.html">Kosh</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raags.html">Raags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rehats.html">Rehats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sources.html">Sources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="writers.html">Writers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="searchtype.html">Search Types</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="random.html" title="previous chapter">Random</a></li>
+      <li>Next: <a href="angs.html" title="next chapter">Angs</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Khalis Foundation.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.3.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/hukamnama.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
