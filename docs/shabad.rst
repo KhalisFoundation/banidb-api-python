@@ -10,7 +10,7 @@ Get Shabad using its corresponding Shabad ID
 Return a dictionary of search results.
 
 **Parameters:** 
-    - **shabad_id** *(int)* – id of the specific shabad, recieved from the `search <searchdb.html>`__ results.
+    - **shabad_id** *(int)* – id of the specific shabad, recieved from the `search <searchdb.rst>`__ results.
     - **larivaar** *(bool)* - you want it to be in larivaar or not.
 
 **Returns:**    Specific Shabad as a dictionary(key-value pair).
