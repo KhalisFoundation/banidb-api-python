@@ -27,5 +27,5 @@ Index Search Type
 7     Romanized first letter anywhere (English)
 ===== ===========
 
-The above provided indices can be used in `Search <searchdb.html>`__ function
+The above provided indices can be used in `Search <searchdb.rst>`__ function
 to narrow exploration.
