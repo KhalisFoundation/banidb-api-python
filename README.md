@@ -1,9 +1,9 @@
 # [BaniDB](https://pypi.org/user/KhalisFoundation/)
-[![](bdb.svg)](http://banidb.com)
+[![](https://raw.githubusercontent.com/KhalisFoundation/banidb-api-python/main/bdb.svg)](http://banidb.com)
 
-[![powered-by-banidb](powered-by-banidb.svg)](https://banidb.com)
+[![powered-by-banidb](https://raw.githubusercontent.com/KhalisFoundation/banidb-api-python/main/powered-by-banidb.svg)](https://banidb.com)
 [![made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://pypi.org/project/banidb/)
-[![docs-passing](docs-passing.svg)](https://banidbpy.rtfd.io)
+[![docs-passing](https://raw.githubusercontent.com/KhalisFoundation/banidb-api-python/main/docs-passing.svg)](https://banidbpy.rtfd.io)
 
 # Vision Statement
 
@@ -88,3 +88,23 @@ Note: at the time of writing this doc, this feature was not working on MacOS
 gh workflow run python-publish.yml
 ```
 
+## Building Docs
+To build the docs, you need to have [Sphinx](https://www.sphinx-doc.org/en/master/index.html) installed.
+To install sphinx:
+
+```
+pip install -U Sphinx
+```
+
+Make sure the changes you make are in .rst files,
+For help with rst files, see [.rst](https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html)
+
+Then, to build html files for the docs, run:
+
+```
+make html
+```
+
+After the whole process, you can upload the docs folder with a new Pull Request.
+
+Chardikala
